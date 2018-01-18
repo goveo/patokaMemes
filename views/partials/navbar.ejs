@@ -1,15 +1,31 @@
 <nav class="ui inverted stackable menu" id="navbar">
     <div class="ui container">
-        <a href="#" class="header item">
-            <img class="logo" src="/images/pepe.png">Patoka Memes
-        </a>
-        <a href="#" class="item">Home</a>
+
+        <% if(pageName == 'index' ) { %>
+            <a href="#" class="header item">
+                <img class="logo" src="/images/pepe.png">Patoka Memes
+            </a>
+        <% } else { %>
+            <a href="/" class="header item">
+                <img class="logo" src="/images/pepe.png">Patoka Memes
+            </a>
+        <% } %>
+
+
         <div class="right menu">
             <div class="item">
-                <a class="ui inverted button">Log in</a>
+                <% if(pageName == 'login' ) { %>
+                    <a class="ui inverted button" href="#">Log in</a>
+                <% } else { %>
+                    <a class="ui inverted button" href="/login">Log in</a>
+                <% } %>
             </div>
             <div class="item">
-                <a class="ui inverted button">Sign Up</a>
+                <% if(pageName == 'register' ) { %>
+                    <a class="ui inverted button" href="#">Sign Up</a>
+                <% } else { %>
+                    <a class="ui inverted button" href="/register">Sign Up</a>
+                <% } %>
             </div>
         </div>
     </div>

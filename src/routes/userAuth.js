@@ -7,7 +7,6 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session')
 const bodyParser = require('body-parser');
 
-
 passport.use(Auth.Strategy);
 router.use(cookieParser());
 router.use(session({
@@ -19,8 +18,9 @@ router.use(passport.initialize());
 router.use(passport.session());
 
 router.use(bodyParser.urlencoded({
-    extended: false
+    extended: true
 }));
+router.use(bodyParser.json());
 
 router.post('/login', (req, res) => {
     console.log(req.body);
@@ -66,6 +66,9 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', (req, res) => {
+    console.log(req);
+    console.log('req.body.username : ', req.body.username);
+    console.log('req.body.password : ', req.body.password);
     if (req.body.username == undefined || req.body.password == undefined) {
         return res.json({
             error: 'fill all fields please'
@@ -76,13 +79,17 @@ router.post('/register', (req, res) => {
     let hash = Auth.sha512(req.body.password).passwordHash;
     obj.passHash = hash;
     User.create(obj)
-        .then(data => { return res.redirect('/') })
-        .catch(err => {
-            return res.send({
-                error: 'err'
-            })
+        .then(data => { 
+            res.json({
+                data: data
+            });
         })
-})
+        .catch(err => {
+            res.json({
+                error: 'err'
+            });
+        });
+});
 
 module.exports = {
     router: router

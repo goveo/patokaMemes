@@ -5,6 +5,7 @@ const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const session = require('express-session')
 const bodyParser = require('body-parser');
+const isVaild = require('../modules/inputValidate')
 
 passport.use(Auth.Strategy);
 passport.serializeUser(Auth.serializeUser);
@@ -76,6 +77,17 @@ router.post('/register', (req, res) => {
             error: 'fill all fields please'
         })
     }
+    if(!isVaild.checkString(req.body.username)){
+        return res.json({
+            error: "invalid username"
+        })
+    } 
+    if(!isVaild.checkString(req.body.password)){
+        return res.json({
+            error: "invalid password"
+        })
+    }
+    
     let obj = req.body;
     console.log(obj);
     let hash = Auth.sha512(req.body.password).passwordHash;

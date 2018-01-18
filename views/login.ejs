@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="icon" href="images/pepe.png" type="image/png">
-    <title>patokaNews</title>
+    <title>patokaMemes</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
@@ -19,11 +19,46 @@
 <body>
     <div id="app">
         <% var pageName = "login" %>
-        <% include partials/navbar %>  
-        <!-- navbar -->
+        <% include partials/navbar %>
+            <!-- navbar -->
 
         <div id="content">
-            <h1 class="center">Login</h1>
+    
+            <div class="ui middle aligned center aligned grid" id="register-form">
+                <div class="container">
+                    <h2 class="ui image header">
+                        <img src="images/pepe.png" class="image">
+                        <div class="content">
+                            Log-in to your account
+                        </div>
+                    </h2>
+                    <form class="ui large form">
+                        <div class="ui stacked segment">
+                            <div class="field">
+                                <div class="ui left icon input">
+                                    <i class="user icon"></i>
+                                    <input id="usernameLoginInput" type="text" name="username" placeholder="Username">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui left icon input">
+                                    <i class="lock icon"></i>
+                                    <input id="usernamePasswordInput" type="password" name="password" placeholder="Password">
+                                </div>
+                            </div>
+                            <button @click="login" type="button" class="ui fluid large black submit button">Login</button>
+                        </div>
+
+                        <div class="ui error message"></div>
+
+                    </form>
+
+                    <div class="ui message">
+                        New to us?
+                        <a href="/register">Sign Up</a>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>

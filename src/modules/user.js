@@ -40,36 +40,45 @@ function getUserById(userId) {
         })
 }
 
-function getUserByPassHash(username, passHash) {
-    // return User.find({ 
-    //     username: username, 
-    //     passHash: passHash 
-    // })
-    // .then(data=>{
-    //     if(data.length===0){
-    //         return Promise.reject('wrong data');
-    //     }else{
-    //         return Promise.resolve(data[0]);
-    //     }
-    // })
-    // .catch(err=>{
-    //     console.log(err);
-    //     return Promise.reject(err);
-    // })
-    return new Promise((resolve, reject) => {
-        User.findOne({
-            username: username,
-            passHash: passHash
-        }, (err, data)=>{
-            if (err) return Promise.reject(err);
-            console.log(data);
-            return Promise.resolve(data);
-        })
+function isUserExist(username) {
+    return User.findOne({
+        username: username
     })
+        .then(data => {
+            if (data == null) {
+                return Promise.resolve(false);
+            }
+            else {
+                return Promise.resolve(true);
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            return Promise.reject(err);
+        })
+}
+
+function getUserByPassHash(username, passHash) {
+    return User.find({
+        username: username,
+        passHash: passHash
+    })
+        .then(data => {
+            if (data.length === 0) {
+                return Promise.reject('wrong data');
+            } else {
+                return Promise.resolve(data[0]);
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            return Promise.reject(err);
+        })
 };
 
 module.exports = {
     create: createUser,
     getUserByPassHash: getUserByPassHash,
-    getById: getUserById
+    getById: getUserById,
+    isUserExist: isUserExist
 }

@@ -32,6 +32,11 @@
                             Log-in to your account
                         </div>
                     </h2>
+                    <div class="ui negative message" v-show="loginError">
+                        <div class="header">
+                            <span class="center">Wrong username or password</span>
+                        </div>
+                    </div>
                     <form class="ui large form">
                         <div class="ui stacked segment">
                             <div class="field">

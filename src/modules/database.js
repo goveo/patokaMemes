@@ -1,7 +1,8 @@
-import mongoose from 'mongoose';
-import paginate from 'mongoose-paginate';
+const mongoose = require('mongoose');
+const paginate = require('mongoose-paginate');
 require('dotenv').load();
-mongoose.connect(process.env.DB_LINK, (err) => {
+console.log(process.env.DB_LINK);
+mongoose.connect(process.env.DB_LINK, { useMongoClient: true }, (err) => {
     if (err) {
         return console.log(err)
     } else {

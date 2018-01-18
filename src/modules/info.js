@@ -1,15 +1,10 @@
 const mongoose = require('mongoose');
 require('dotenv').load();
 
-const Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 
-const infoDocId = process.env.INFODOC_OBJ_ID;
-const infoDocSchema = new Schema({
-    userId: Number
-})
 
-const InfoDoc = mongoose.model("InfoDoc", infoDocSchema);
+const InfoDoc = require('../schemas/info').Info;
 
 function getuserId() {
     return InfoDoc.findById(infoDocId)

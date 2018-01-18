@@ -48,9 +48,25 @@ router.get('/sendFailure', (req, res) => {
 passport.serializeUser(Auth.serializeUser);
 passport.deserializeUser(Auth.deserializeUser);
 
-app.get('/logout', Auth.checkAuth, (req, res) => {
+router.get('/logout', Auth.checkAuth, (req, res) => {
     req.logout();
     res.redirect('/');
+})
+
+router.get('/login', (req, res) => {
+    res.render('login', {
+        user: req.user
+    }); 
+});
+
+router.get('/register', (req, res) => {
+    res.render('register', {
+        user: req.user
+    });
+});
+
+router.post('/register', (req, res) => {
+
 })
 
 module.exports={

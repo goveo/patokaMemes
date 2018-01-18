@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Auth = require('../modules/auth');
-const User = require('../modules/user');
+const db = require('../modules/database');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const session = require('express-session')
@@ -47,7 +47,7 @@ router.post('/login', (req, res) => {
     let password = req.body.password;
     let hash = Auth.sha512(req.body.password).passwordHash;
 
-    User.getUserByPassHash(username, hash)
+    db.getUserByPassHash(username, hash)
         .then(user => {
             if (!user) {
                 res.json('Wrong usenrame or password');
@@ -81,11 +81,11 @@ router.post('/register', (req, res) => {
         return res.json("invalid password");
     }
 
-    User.isUserExist()
+    db.isUserExist()
         .then(data => {
             if (data == false) {
 
-                User.createUser({
+                db.createUser({
                     username: username,
                     passHash: hash
                 })

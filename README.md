@@ -1,2 +1,2 @@
-# newsWebsite
-simple news website [Int20h test]
+# patokaMemes
+simple memes website [Int20h test] 

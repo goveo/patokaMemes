@@ -55,13 +55,18 @@ router.post('/login', (req, res) => {
                 console.log(user);
                 passport.authenticate('local')(req, res, function () {
                     console.log('logined success');
-                    res.json('success');
+                    res.json({
+                        status: 'success'
+                    });
                 });
             }
         })
         .catch(err => {
             console.log(err);
-            res.json('error');
+            res.json({
+                status: 'error',
+                message: "Sorry our server is offline =("
+            });
         })
 })
 

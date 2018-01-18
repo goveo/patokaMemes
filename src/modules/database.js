@@ -16,9 +16,7 @@ const createUser = function (object) {
         let user = new User(object);
         user.save((err, data) => {
             if (err) {
-                console.log("ERRRRRROR================================");
                 console.log(err);
-                console.log("END ================================");
                 reject({
                     message: 'Username is already taken.',
                     status: 402

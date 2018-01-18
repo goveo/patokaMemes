@@ -24,6 +24,24 @@ router.use(bodyParser.urlencoded({
 }));
 router.use(bodyParser.json());
 
+router.get('/logout', Auth.checkAuth, (req, res) => {
+    console.log('log out');
+    req.logout();
+    res.redirect('/');
+})
+
+router.get('/login', (req, res) => {
+    res.render('login', {
+        user: req.user
+    });
+});
+
+router.get('/register', (req, res) => {
+    res.render('register', {
+        user: req.user
+    });
+});
+
 router.post('/login', (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
@@ -46,24 +64,6 @@ router.post('/login', (req, res) => {
             res.json('error');
         })
 })
-
-router.get('/logout', Auth.checkAuth, (req, res) => {
-    console.log('log out');
-    req.logout();
-    res.redirect('/');
-})
-
-router.get('/login', (req, res) => {
-    res.render('login', {
-        user: req.user
-    });
-});
-
-router.get('/register', (req, res) => {
-    res.render('register', {
-        user: req.user
-    });
-});
 
 router.post('/register', (req, res) => {
 
@@ -106,12 +106,6 @@ router.post('/register', (req, res) => {
             console.log(err);
             res.json('error');
         })
-});
-
-router.get('/profile', (req, res) => {
-    res.render('profile', {
-        user: req.user
-    });
 });
 
 module.exports = {

@@ -1,29 +1,21 @@
 const mongoose = require('mongoose');
-const Info = require('./info');
-let User = require('../schemas/user').User;
+const User = require('../schemas/user').User;
 mongoose.Promise = global.Promise;
 
 function createUser(object) {
-    console.log(object);
-    return Info.userId()
-        .then(userId => {
-            console.log('id:', userId);
-            let tmp = new User(object);
-            tmp.id = userId;
-            tmp.save((err, data) => {
-                if (err) {
-                    console.log(err);
-                    return Promise.reject(err)
-                } else {
-                    Info.incUserId();
-                    return Promise.resolve(data);
-                }
-            })
-        })
-        .catch(err => {
+    let user = new User(object);
+    user.id = userId;
+    user.save((err, data) => {
+        if (err) {
             console.log(err);
-            return Promise.reject(err);
-        })
+            return Promise.reject({
+                message: 'Username is already taken.',
+                status: 402
+            });
+        } else {
+            return Promise.resolve(data);
+        }
+    });
 }
 
 function getUserById(userId) {

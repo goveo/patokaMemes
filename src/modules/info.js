@@ -1,10 +1,8 @@
 const mongoose = require('mongoose');
 require('dotenv').load();
-const infoDocId =  process.env.INFODOC_OBJ_ID
-mongoose.Promise = global.Promise;
-
-
+const infoDocId = process.env.INFODOC_OBJ_ID
 const InfoDoc = require('../schemas/info').Info;
+mongoose.Promise = global.Promise;
 
 function getuserId() {
     return InfoDoc.findById(infoDocId)
@@ -18,13 +16,13 @@ function getuserId() {
 
 function incUserId() {
     let upd = {
-        $inc:{
+        $inc: {
             userId: 1
         }
     };
-    InfoDoc.update({_id: infoDocId}, upd)
-        .then(data=>console.log(data))
-        .catch(err=>console.log(err));
+    InfoDoc.update({ _id: infoDocId }, upd)
+        .then(data => console.log(data))
+        .catch(err => console.log(err));
 }
 
 module.exports = {

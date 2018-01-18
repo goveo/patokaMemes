@@ -13,9 +13,19 @@ app.set('views', path.join(__dirname, '/../views'));
 app.set('view engine', 'ejs');
 
 
-app.get('/login', (req, res)=>{});
+app.get('/login', (req, res) => {
+    res.render('login', {
+        user: req.user
+    }); 
+});
 
-app.post('/register', (req, res)=>{
+app.get('/register', (req, res) => {
+    res.render('register', {
+        user: req.user
+    });
+});
+
+app.post('/register', (req, res) => {
 
 })
 

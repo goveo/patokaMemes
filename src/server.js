@@ -12,22 +12,8 @@ app.set('public', path.join(__dirname, '/../public'));
 app.set('views', path.join(__dirname, '/../views'));
 app.set('view engine', 'ejs');
 
+app.use('/', require('./routes/userAuth').router);
 
-app.get('/login', (req, res) => {
-    res.render('login', {
-        user: req.user
-    }); 
-});
-
-app.get('/register', (req, res) => {
-    res.render('register', {
-        user: req.user
-    });
-});
-
-app.post('/register', (req, res) => {
-
-})
 
 app.listen(port, (err) => {
     if (err) console.log(err);

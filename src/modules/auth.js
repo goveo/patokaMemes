@@ -25,15 +25,7 @@ function deserializeUser(id, done) {
         .then(user => {
             done(user ? null : 'No user', user);
         })
-        .catch(err => {
-            // console.log('err in deserialize:', err)
-            if (err == 'no user with this index') {
-                Band.getById(id)
-                    .then(user => {
-                        done(user ? null : 'No band', user);
-                    })
-            }
-        });
+        .catch(err => {});
 };
 
 function checkAuth(req, res, next) {
@@ -49,32 +41,25 @@ function checkAuth(req, res, next) {
 const Strategy = new LocalStrategy(
     function (username, password, done) {
         let hash = sha512(password).passwordHash;
-        User.getUserByUsernameAndHash(username, hash)
-            .then(user => {
-                console.dir(user);
-                if (!user) {
-                    console.log('no user')
-                    Band.getByUsernameAndHash(username, hash)
-                        .then(band => {
-                            console.log('band searching:', band)
-                            if (!band) {
-                                console.log('band here')
-                                return done(null, false);
-                            } else {
-                                console.log('band not here')
-                                return done(null, band)
-                            }
-                        })
-                        .catch(err => {
-                            console.log('band login err:', err)
-                        })
-                    // return done(null, false);
-                } else {
-                    return done(null, user);
+        User.getUserByPassHash(username, hash)
+            .then(user=>{
+                if(!user){
+                    console.log('no user');
+                    return done(null, false);
                 }
+                console.log(user);
+                return done(null, user);
             })
-            .catch(err => {
-                console.log(err)
+            .catch(err=>{
+                console.log(err);
             })
     }
 )
+
+module.exports = {
+    sha512: sha512,
+    checkAuth: checkAuth,
+    serializeUser: serializeUser,
+    deserializeUser: deserializeUser,
+    Strategy: Strategy
+}

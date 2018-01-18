@@ -2,12 +2,13 @@ const router = require('express').Router();
 const Auth = require('../modules/auth');
 const User = require('../modules/user');
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 const cookieParser = require('cookie-parser');
 const session = require('express-session')
 const bodyParser = require('body-parser');
 
 passport.use(Auth.Strategy);
+passport.serializeUser(Auth.serializeUser);
+passport.deserializeUser(Auth.deserializeUser);
 router.use(cookieParser());
 router.use(session({
     secret: 'SEGReT$25_',
@@ -47,8 +48,7 @@ router.post('/login', (req, res) => {
         })
 })
 
-passport.serializeUser(Auth.serializeUser);
-passport.deserializeUser(Auth.deserializeUser);
+
 
 router.get('/logout', Auth.checkAuth, (req, res) => {
     req.logout();

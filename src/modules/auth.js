@@ -25,7 +25,7 @@ function deserializeUser(id, done) {
         .then(user => {
             done(user ? null : 'No user', user);
         })
-        .catch(err => {});
+        .catch(err => { });
 };
 
 function checkAuth(req, res, next) {
@@ -41,16 +41,17 @@ function checkAuth(req, res, next) {
 const Strategy = new LocalStrategy(
     function (username, password, done) {
         let hash = sha512(password).passwordHash;
+        console.log('hash:', hash)
         User.getUserByPassHash(username, hash)
-            .then(user=>{
-                if(!user){
+            .then(user => {
+                if (!user) {
                     console.log('no user');
-                    return done(null, false);
+                    done(null, false);
                 }
                 console.log(user);
-                return done(null, user);
+                done(null, user);
             })
-            .catch(err=>{
+            .catch(err => {
                 console.log(err);
             })
     }

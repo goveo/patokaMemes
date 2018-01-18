@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const User = require('../schemas/user').User;
+const User = require('../schemas/user');
 
 require('dotenv').load();
 mongoose.connect(process.env.DB_LINK, (err) => {
@@ -11,23 +11,26 @@ mongoose.connect(process.env.DB_LINK, (err) => {
 });
 mongoose.Promise = global.Promise;
 
-function createUser(object) {
+const createUser = function (object) {
     return new Promise((resolve, reject) => {
         let user = new User(object);
         user.save((err, data) => {
             if (err) {
+                console.log("ERRRRRROR================================");
                 console.log(err);
+                console.log("END ================================");
                 reject({
                     message: 'Username is already taken.',
                     status: 402
                 });
+            } else {
+                resolve(data);
             }
-            resolve(data);
         });
     });
 }
 
-function getUserById(userId) {
+const getUserById = function (userId) {
     return User.find({ id: userId })
         .then(data => {
             if (data.length === 0) {
@@ -41,7 +44,7 @@ function getUserById(userId) {
         })
 }
 
-function isUserExist(username) {
+const isUserExist = function (username) {
     return User.findOne({
         username: username
     })
@@ -59,16 +62,16 @@ function isUserExist(username) {
         })
 }
 
-function getUserByPassHash(username, passHash) {
-    return User.find({
+const getUserByPassHash = function (username, passHash) {
+    return User.findOne({
         username: username,
         passHash: passHash
     })
         .then(data => {
-            if (data.length === 0) {
-                return Promise.reject('wrong data');
+            if (data == null) {
+                return Promise.reject('No user with that username and hash');
             } else {
-                return Promise.resolve(data[0]);
+                return Promise.resolve(data);
             }
         })
         .catch(err => {

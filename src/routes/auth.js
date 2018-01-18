@@ -66,46 +66,47 @@ router.post('/login', (req, res) => {
 })
 
 router.post('/register', (req, res) => {
-
     let username = req.body.username;
     let password = req.body.password;
     let hash = Auth.sha512(password).passwordHash;
+    console.log('username : ', username);
+    console.log('password : ', password);
 
     if (username == undefined || password == undefined) {
-        return res.json('some fields are emprty');
+        return res.json({
+            status: "error",
+            message: "Some fields are emprty"
+        });
     }
     if (!isVaild.checkString(username)) {
-        return res.json("invalid username");
+        return res.json({
+            status: "error",
+            message: "Invalid username"
+        });
     }
-    if (!isVaild.checkString(username)) {
-        return res.json("invalid password");
+    if (!isVaild.checkString(password)) {
+        return res.json({
+            status: "error",
+            message: "Invalid password"
+        });
     }
 
-    db.isUserExist()
-        .then(data => {
-            if (data == false) {
-
-                db.createUser({
-                    username: username,
-                    passHash: hash
-                })
-                    .then(response => {
-                        console.log(response);
-                        res.json('success');
-                    })
-                    .catch(err => {
-                        res.json('error');
-                    });
-
-            } else {
-                res.json('error');
-            }
+    db.createUser({
+        username: username,
+        passHash: hash
+    })
+        .then(response => {
+            console.log(response);
+            return res.json({
+                status: "success"
+            });
         })
         .catch(err => {
-            console.log("err : ");
-            console.log(err);
-            res.json('error');
-        })
+            return res.json({
+                status: "error",
+                message: "Username is already taken"
+            });
+        });
 });
 
 module.exports = {

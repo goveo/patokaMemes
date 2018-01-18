@@ -3,7 +3,7 @@ var app = new Vue({
     data: {
         loginError: false,
         registerError: false,
-        differentPassError: false
+        errorText: ""
     },
     methods: {
         chooseMeme: function (event) {
@@ -27,10 +27,11 @@ var app = new Vue({
                 success: function (response) {
                     console.log('response : ');
                     console.log(response);
-                    if (response == 'success') {
+                    if (response.status == 'success') {
                         console.log('registered');
                         app.loginPost(username, password);
                     } else {
+                        app.errorText = response.message;
                         app.registerError = true;
                     }
                 },  
@@ -55,9 +56,11 @@ var app = new Vue({
                 success: function (response) {
                     console.log('response : ');
                     console.log(response);
-                    if (response == 'success') {
+                    if (response.status == 'success') {
+                        console.log('logined');
                         window.location = "/profile";
                     } else {
+                        app.errorText = response.message;
                         app.loginError = true;
                     }
                 },  
@@ -83,7 +86,8 @@ var app = new Vue({
             console.log('passwordAgain : ', passwordAgain);
 
             if (password != passwordAgain) {
-                app.differentPassError = true;
+                app.errorText = "Passwords are different";
+                app.registerError = true;
             } else {
                 app.registerPost(username, password);
             }
@@ -94,8 +98,5 @@ var app = new Vue({
     },
     created: function () {
         console.log('created');
-        $('.special.cards .image').dimmer({
-            on: 'hover'
-        });
     }
 });

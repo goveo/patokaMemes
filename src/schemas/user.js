@@ -5,7 +5,12 @@ const Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 
 const UserSchema = new Schema({
-    username: String,
+    username: {
+		type: String,
+		unique: true,
+		lowercase: true,
+		index: true
+	},
     fullname: String,
     birthdate: Date,
     passHash: String,
@@ -18,8 +23,4 @@ UserSchema.plugin(AutoIncrement, {
 });
 UserSchema.plugin(mongoosePaginate);
 
-const User = mongoose.model("User", UserSchema);
-
-module.exports = {
-    User: User
-}
+module.exports = mongoose.model('User', UserSchema);

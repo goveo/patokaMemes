@@ -32,14 +32,9 @@
                                 Create new account
                             </div>
                         </h2>
-                        <div class="ui negative message" v-show="differentPassError">
-                            <div class="header">
-                                <span class="center">Passwords does not match</span>
-                            </div>
-                        </div>
                         <div class="ui negative message" v-show="registerError">
                             <div class="header">
-                                <span class="center">Username is already taken</span>
+                                <span class="center">{{errorText}}</span>
                             </div>
                         </div>
                         <form class="ui large form" enctype="form-data">

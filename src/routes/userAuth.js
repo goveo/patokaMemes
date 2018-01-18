@@ -47,8 +47,6 @@ router.post('/login', (req, res) => {
         })
 })
 
-
-
 router.get('/logout', Auth.checkAuth, (req, res) => {
     console.log('log out');
     req.logout();
@@ -68,36 +66,28 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', (req, res) => {
-    console.log('req.body.username : ', req.body.username);
-    console.log('req.body.password : ', req.body.password);
-    if (req.body.username == undefined || req.body.password == undefined) {
-        return res.json({
-            error: 'fill all fields please'
-        })
-    }
-  
-    if(!isVaild.checkString(req.body.username)){
-        return res.json({
-            error: "invalid username"
-        })
-    } 
-    if(!isVaild.checkString(req.body.password)){
-        return res.json({
-            error: "invalid password"
-        })
-    }
-    
-    let obj = req.body;
-    console.log(obj);
-    let hash = Auth.sha512(req.body.password).passwordHash;
 
-    User.isUserExist(req.body.username)
+    let username = req.body.username;
+    let password = req.body.password;
+    let hash = Auth.sha512(password).passwordHash;
+
+    if (username == undefined || password == undefined) {
+        return res.json('some fields are emprty');
+    }
+    if (!isVaild.checkString(username)) {
+        return res.json("invalid username");
+    }
+    if (!isVaild.checkString(username)) {
+        return res.json("invalid password");
+    }
+
+    User.isUserExist()
         .then(data => {
             if (data == false) {
-                let obj = req.body;
-                console.log(obj);
-                obj.passHash = hash;
-                User.create(obj)
+                User.create({
+                    username: username,
+                    passHash: hash
+                })
                     .then(data => {
                         console.log(data);
                         res.json('success');

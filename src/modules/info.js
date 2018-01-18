@@ -6,64 +6,33 @@ mongoose.Promise = global.Promise;
 
 const infoDocId = process.env.INFODOC_OBJ_ID;
 const infoDocSchema = new Schema({
-    newsId: Number,
-    commentId: Number
+    userId: Number
 })
 
 const InfoDoc = mongoose.model("InfoDoc", infoDocSchema);
 
-let obj = {
-    newsId: 0,
-    commentId: 0
-}
-
-function getNewsId() {
+function getuserId() {
     return InfoDoc.findById(infoDocId)
         .then(data => {
-            return data.newsId;
+            return Promise.resolve(data.userId);
         })
         .catch(err => {
-            return err;
+            return Promise.reject(err);
         })
 }
 
-function getCommentId() {
-    return InfoDoc.findById(infoDocId)
-        .then(data => {
-            return data.commentId;
-        })
-        .catch(err => {
-            return err;
-        })
+function incUserId() {
+    let upd = {
+        $inc:{
+            userId: 1
+        }
+    };
+    InfoDoc.update({_id: infoDocId}, upd)
+        .then(data=>console.log(data))
+        .catch(err=>console.log(err));
 }
-
-function updateNewsId() { 
-    let upd = {
-        $inc: {
-            newsId: 1
-        }
-    }
-    InfoDoc.update({_id: infoDocId}, upd, (err, data)=>{
-        if(err) return console.log(err);
-        return console.log(data);
-    });
-};
-
-function updateCommentId() { 
-    let upd = {
-        $inc: {
-            commentId: 1
-        }
-    }
-    InfoDoc.update({_id: infoDocId}, upd, (err, data)=>{
-        if(err) return console.log(err);
-        return console.log(data);
-    });
-};
 
 module.exports = {
-    newsId: getNewsId,
-    commentId: getCommentId,
-    incNewsId: updateNewsId,
-    incCommentId: updateCommentId
+    userId: getuserId,
+    incUserId: incUserId
 }

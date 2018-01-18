@@ -66,7 +66,15 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', (req, res) => {
-
+    let obj = req.body;
+    console.log(obj);
+    let hash = Auth.sha512(req.body.password).passwordHash;
+    obj.passHash = hash;
+    User.create(obj)
+        .then(data=>res.redirect('/'))
+        .catch(err=>res.send({
+            error: 'err'
+        }))
 })
 
 module.exports={

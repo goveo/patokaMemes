@@ -35,35 +35,39 @@
             </div>
         </nav>
         <div id="content">
+
             <h1 class="center">Main content</h1>
 
             <div class="ui centered grid" id="memeChooser">
 
-                <div class="ui special cards">
-                    
-                    <div class="blurring dimmable image meme-image">
-                        <div class="ui dimmer center">
-                            <div class="content">
-                                <div class="center">
-                                    <div class="ui inverted button">Choose meme</div>
+                <div class="row">
+                    <div class="ui center special cards">
+                        <div class="column meme-image">
+                            <div class="blurring dimmable image">
+                                <div class="ui dimmer center">
+                                    <div class="content">
+                                        <div class="center">
+                                            <div param_id='firstmeme_ID' class="ui inverted button" @click="chooseMeme($event)">Choose meme</div>
+                                        </div>
+                                    </div>
                                 </div>
+                                <img src="images/meme1.jpg">
                             </div>
                         </div>
-                        <img src="images/meme1.jpg">
-                    </div>
-                
-                
-                    <div class="blurring dimmable image">
-                        <div class="ui dimmer center">
-                            <div class="content">
-                                <div class="center">
-                                    <div class="ui inverted button">Choose meme</div>
+
+                        <div class="column">
+                            <div class="blurring dimmable image">
+                                <div class="ui dimmer center">
+                                    <div class="content">
+                                        <div class="center">
+                                            <div param_id='secondmeme_ID' class="ui inverted button" @click="chooseMeme($event)">Choose meme</div>
+                                        </div>
+                                    </div>
                                 </div>
+                                <img src="images/meme2.jpg">
                             </div>
                         </div>
-                        <img src="images/meme2.jpg">
                     </div>
-                
                 </div>
 
             </div>

@@ -13,6 +13,28 @@ var app = new Vue({
             let password = $("#passwordSigninInput").val();
             console.log('login : ', login);
             console.log('password : ', password);
+            let data = {
+                username: login,
+                password: password
+            };
+
+            $.ajax({
+                type: 'post',
+                url: '/login',   
+                data: data,
+                xhrFields: {
+                    withCredentials: false
+                },  
+                headers: {}, 
+                success: function (response) {
+                    console.log('Success');
+                    console.log(response);
+                },  
+                error: function (error) {
+                    console.log('We are sorry but our servers are having an issue right now');
+                    console.log(error);
+                }
+            });
         },
         register: function () {
             let login = $("#usernameSignupInput").val();

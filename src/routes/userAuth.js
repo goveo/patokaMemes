@@ -23,8 +23,6 @@ router.use(bodyParser.urlencoded({
 router.use(bodyParser.json());
 
 router.post('/login', (req, res) => {
-    console.log(req.body);
-
     let username = req.body.username;
     let password = req.body.password;
     let hash = Auth.sha512(req.body.password).passwordHash;
@@ -68,7 +66,6 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', (req, res) => {
-    console.log(req);
     console.log('req.body.username : ', req.body.username);
     console.log('req.body.password : ', req.body.password);
     if (req.body.username == undefined || req.body.password == undefined) {
@@ -76,21 +73,32 @@ router.post('/register', (req, res) => {
             error: 'fill all fields please'
         })
     }
-    let obj = req.body;
-    console.log(obj);
+
     let hash = Auth.sha512(req.body.password).passwordHash;
-    obj.passHash = hash;
-    User.create(obj)
+
+    User.isUserExist(req.body.username)
         .then(data => {
-            res.json({
-                data: data
-            });
+            if (data == false) {
+                let obj = req.body;
+                console.log(obj);
+                obj.passHash = hash;
+                User.create(obj)
+                    .then(data => {
+                        console.log(data);
+                        res.json('success');
+                    })
+                    .catch(err => {
+                        res.json('error');
+                    });
+            } else {
+                res.json('error');
+            }
         })
         .catch(err => {
-            res.json({
-                error: 'err'
-            });
-        });
+            console.log("err : ");
+            console.log(err);
+            res.json('error');
+        })
 });
 
 module.exports = {

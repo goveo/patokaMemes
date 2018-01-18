@@ -11,13 +11,7 @@ app.use(express.static(__dirname + '/../public'));
 app.set('public', path.join(__dirname, '/../public'));
 app.set('views', path.join(__dirname, '/../views'));
 app.set('view engine', 'ejs');
-
-
-app.get('/login', (req, res)=>{});
-
-app.post('/register', (req, res)=>{
-
-})
+app.use('/', require('./routes/userAuth').router);
 
 app.listen(port, (err) => {
     if (err) console.log(err);

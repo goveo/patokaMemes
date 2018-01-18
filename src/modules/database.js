@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const paginate = require('mongoose-paginate');
 require('dotenv').load();
 mongoose.connect(process.env.DB_LINK, (err) => {
     if (err) {

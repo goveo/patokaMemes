@@ -4,7 +4,7 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 const Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 
-const userSchema = new Schema({
+const UserSchema = new Schema({
     username: String,
     fullname: String,
     birthdate: Date,
@@ -18,7 +18,7 @@ UserSchema.plugin(AutoIncrement, {
 });
 UserSchema.plugin(mongoosePaginate);
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("User", UserSchema);
 
 module.exports = {
     User: User

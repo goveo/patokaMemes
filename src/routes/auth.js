@@ -85,18 +85,18 @@ router.post('/register', (req, res) => {
         .then(data => {
             if (data == false) {
 
-                User.create({
+                User.createUser({
                     username: username,
                     passHash: hash
                 })
-                    .then(data => {
-                        console.log(data);
+                    .then(response => {
+                        console.log(response);
                         res.json('success');
                     })
                     .catch(err => {
                         res.json('error');
                     });
-                    
+
             } else {
                 res.json('error');
             }

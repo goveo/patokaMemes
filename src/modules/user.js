@@ -3,18 +3,18 @@ const User = require('../schemas/user').User;
 mongoose.Promise = global.Promise;
 
 function createUser(object) {
-    let user = new User(object);
-    user.id = userId;
-    user.save((err, data) => {
-        if (err) {
-            console.log(err);
-            return Promise.reject({
-                message: 'Username is already taken.',
-                status: 402
-            });
-        } else {
-            return Promise.resolve(data);
-        }
+    return new Promise((resolve, reject) => {
+        let user = new User(object);
+        user.save((err, data) => {
+            if (err) {
+                console.log(err);
+                reject({
+                    message: 'Username is already taken.',
+                    status: 402
+                });
+            }
+            resolve(data);
+        });
     });
 }
 
@@ -69,7 +69,7 @@ function getUserByPassHash(username, passHash) {
 };
 
 module.exports = {
-    create: createUser,
+    createUser: createUser,
     getUserByPassHash: getUserByPassHash,
     getById: getUserById,
     isUserExist: isUserExist

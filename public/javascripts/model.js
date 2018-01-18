@@ -7,7 +7,8 @@ var app = new Vue({
     },
     methods: {
         chooseMeme: function (event) {
-            console.log($(event.currentTarget).attr('param_id'));
+            let memeID = $(event.currentTarget).attr('param_id');
+            console.log("memeID : ", memeID);
             console.log('need to change memes and push info to db');
         },
         registerPost: function(username, password) {
@@ -28,8 +29,7 @@ var app = new Vue({
                     console.log(response);
                     if (response == 'success') {
                         console.log('registered');
-                        // loginPost here
-                        window.location = "/profile";
+                        app.loginPost(username, password);
                     } else {
                         app.registerError = true;
                     }
@@ -87,6 +87,9 @@ var app = new Vue({
             } else {
                 app.registerPost(username, password);
             }
+        },
+        logout: function () {
+            window.location = "/logout";
         }
     },
     created: function () {

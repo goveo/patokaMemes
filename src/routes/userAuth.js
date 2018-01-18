@@ -49,6 +49,7 @@ passport.serializeUser(Auth.serializeUser);
 passport.deserializeUser(Auth.deserializeUser);
 
 router.get('/logout', Auth.checkAuth, (req, res) => {
+    console.log('log out');
     req.logout();
     res.redirect('/');
 })

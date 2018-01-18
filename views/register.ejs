@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="icon" href="images/pepe.png" type="image/png">
-    <title>patokaNews</title>
+    <title>patokaMemes</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
@@ -23,9 +23,50 @@
         <!-- navbar -->
 
         <div id="content">
-            <h1 class="center">Register</h1>
-
-        </div>
+    
+                <div class="ui middle aligned center aligned grid" id="register-form">
+                    <div class="container">
+                        <h2 class="ui image header">
+                            <img src="images/pepe.png" class="image">
+                            <div class="content">
+                                Create new account
+                            </div>
+                        </h2>
+                        <form class="ui large form" enctype="form-data">
+                            <div class="ui stacked segment">
+                                <div class="field">
+                                    <div class="ui left icon input">
+                                        <i class="user icon"></i>
+                                        <input id="usernameSignupInput" type="text" name="username" placeholder="Username">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui left icon input">
+                                        <i class="lock icon"></i>
+                                        <input id="passwordSignupInput" type="password" name="password" placeholder="Password">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui left icon input">
+                                        <i class="lock icon"></i>
+                                        <input id="passwordAgainSignupInput" type="password" name="passwordAgain" placeholder="Password again">
+                                    </div>
+                                </div>
+                                <button @click="register" type="button" class="ui fluid large black submit button">Register</button>
+                            </div>
+    
+                            <div class="ui error message"></div>
+    
+                        </form>
+    
+                        <div class="ui message">
+                            Already have account?
+                            <a href="/login">Sign In</a>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
     </div>
     <script src="javascripts/model.js"></script>
 </body>

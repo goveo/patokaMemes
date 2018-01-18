@@ -3,7 +3,7 @@
 	justify-content: center;
 }
 
-#memeChooser {
+#meme-chooser {
 	margin-top: 56px;
 }
 
@@ -11,4 +11,8 @@
 	margin: auto;
 	margin-left: 10px;
 	margin-right: 10px;
+}
+
+#register-form {
+	margin-top: 56px;
 }

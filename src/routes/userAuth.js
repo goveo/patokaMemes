@@ -22,7 +22,7 @@ router.use(bodyParser.urlencoded({
     extended: false
 }));
 
-router.post('/login', (req, res)=>{
+router.post('/login', (req, res) => {
     console.log(req.body);
     passport.authenticate(local, {
         successRedirect: '/sendSuccess',
@@ -56,7 +56,7 @@ router.get('/logout', Auth.checkAuth, (req, res) => {
 router.get('/login', (req, res) => {
     res.render('login', {
         user: req.user
-    }); 
+    });
 });
 
 router.get('/register', (req, res) => {
@@ -66,17 +66,24 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', (req, res) => {
+    if (req.body.username == undefined || req.body.password == undefined) {
+        return res.json({
+            error: 'fill all fields please'
+        })
+    }
     let obj = req.body;
     console.log(obj);
     let hash = Auth.sha512(req.body.password).passwordHash;
     obj.passHash = hash;
     User.create(obj)
-        .then(data=>res.redirect('/'))
-        .catch(err=>res.send({
-            error: 'err'
-        }))
+        .then(data => { return res.redirect('/') })
+        .catch(err => {
+            return res.send({
+                error: 'err'
+            })
+        })
 })
 
-module.exports={
+module.exports = {
     router: router
 }

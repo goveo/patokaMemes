@@ -84,6 +84,7 @@ router.post('/register', (req, res) => {
     User.isUserExist()
         .then(data => {
             if (data == false) {
+
                 User.create({
                     username: username,
                     passHash: hash
@@ -95,6 +96,7 @@ router.post('/register', (req, res) => {
                     .catch(err => {
                         res.json('error');
                     });
+                    
             } else {
                 res.json('error');
             }

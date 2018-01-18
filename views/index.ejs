@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="images/pepe.png" type="image/png">
+    <title>patokaNews</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+
+</head>
+
+<body>
+    <div id="app">
+        <nav class="ui inverted stackable menu" id="navbar">
+            <div class="ui container">
+                <a href="#" class="header item">
+                    <img class="logo" src="/images/pepe.png">Patoka Memes
+                </a>
+                <a href="#" class="item">Home</a>
+                <div class="right menu">
+                    <div class="item">
+                        <a class="ui inverted button">Log in</a>
+                    </div>
+                    <div class="item">
+                        <a class="ui inverted button">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div id="content">
+            <h1 class="center">Main content</h1>
+
+            <div class="ui centered grid" id="memeChooser">
+
+                <div class="ui special cards">
+                    
+                    <div class="blurring dimmable image meme-image">
+                        <div class="ui dimmer center">
+                            <div class="content">
+                                <div class="center">
+                                    <div class="ui inverted button">Choose meme</div>
+                                </div>
+                            </div>
+                        </div>
+                        <img src="images/meme1.jpg">
+                    </div>
+                
+                
+                    <div class="blurring dimmable image">
+                        <div class="ui dimmer center">
+                            <div class="content">
+                                <div class="center">
+                                    <div class="ui inverted button">Choose meme</div>
+                                </div>
+                            </div>
+                        </div>
+                        <img src="images/meme2.jpg">
+                    </div>
+                
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <script src="javascripts/model.js"></script>
+    <script>
+        $('.special.cards .image').dimmer({
+            on: 'hover'
+        });
+    </script>
+</body>
+
+</html>

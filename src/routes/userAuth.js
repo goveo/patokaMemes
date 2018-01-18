@@ -102,6 +102,12 @@ router.post('/register', (req, res) => {
         })
 });
 
+router.get('/profile', (req, res) => {
+    res.render('profile', {
+        user: req.user
+    });
+});
+
 module.exports = {
     router: router
 }

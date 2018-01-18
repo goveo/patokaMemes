@@ -2,12 +2,14 @@ const router = require('express').Router();
 const Auth = require('../modules/auth');
 const User = require('../modules/user');
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 const cookieParser = require('cookie-parser');
 const session = require('express-session')
 const bodyParser = require('body-parser');
+const isVaild = require('../modules/inputValidate')
 
 passport.use(Auth.Strategy);
+passport.serializeUser(Auth.serializeUser);
+passport.deserializeUser(Auth.deserializeUser);
 router.use(cookieParser());
 router.use(session({
     secret: 'SEGReT$25_',
@@ -45,8 +47,7 @@ router.post('/login', (req, res) => {
         })
 })
 
-passport.serializeUser(Auth.serializeUser);
-passport.deserializeUser(Auth.deserializeUser);
+
 
 router.get('/logout', Auth.checkAuth, (req, res) => {
     console.log('log out');
@@ -74,7 +75,20 @@ router.post('/register', (req, res) => {
             error: 'fill all fields please'
         })
     }
-
+  
+    if(!isVaild.checkString(req.body.username)){
+        return res.json({
+            error: "invalid username"
+        })
+    } 
+    if(!isVaild.checkString(req.body.password)){
+        return res.json({
+            error: "invalid password"
+        })
+    }
+    
+    let obj = req.body;
+    console.log(obj);
     let hash = Auth.sha512(req.body.password).passwordHash;
 
     User.isUserExist(req.body.username)

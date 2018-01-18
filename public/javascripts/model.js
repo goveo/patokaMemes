@@ -4,10 +4,15 @@ var app = new Vue({
         showSidebar: false,
     },
     methods: {
-        changeSidebarState: function() {
-            console.log('changeSidebarState'); 
-            this.showSidebar = !this.showSidebar;
-            $('.ui.sidebar').sidebar('toggle');
+        chooseMeme: function (event) {
+            console.log($(event.currentTarget).attr('param_id'));
+            console.log('need to change memes and push info to db');
         }
+    },
+    created: function () {
+        console.log('created');
+        $('.special.cards .image').dimmer({
+            on: 'hover'
+        });
     }
 });

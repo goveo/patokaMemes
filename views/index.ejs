@@ -18,52 +18,44 @@
 
 <body>
     <div id="app">
-        <nav class="ui inverted stackable menu" id="navbar">
-            <div class="ui container">
-                <a href="#" class="header item">
-                    <img class="logo" src="/images/pepe.png">Patoka Memes
-                </a>
-                <a href="#" class="item">Home</a>
-                <div class="right menu">
-                    <div class="item">
-                        <a class="ui inverted button">Log in</a>
-                    </div>
-                    <div class="item">
-                        <a class="ui inverted button">Sign Up</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        
+        <% include partials/navbar %>  
+        <!-- navbar -->
+
         <div id="content">
+
             <h1 class="center">Main content</h1>
 
             <div class="ui centered grid" id="memeChooser">
 
-                <div class="ui special cards">
-                    
-                    <div class="blurring dimmable image meme-image">
-                        <div class="ui dimmer center">
-                            <div class="content">
-                                <div class="center">
-                                    <div class="ui inverted button">Choose meme</div>
+                <div class="row">
+                    <div class="ui center special cards">
+                        <div class="column meme-image">
+                            <div class="blurring dimmable image">
+                                <div class="ui dimmer center">
+                                    <div class="content">
+                                        <div class="center">
+                                            <div param_id='firstmeme_ID' class="ui inverted button" @click="chooseMeme($event)">Choose meme</div>
+                                        </div>
+                                    </div>
                                 </div>
+                                <img src="images/meme1.jpg">
                             </div>
                         </div>
-                        <img src="images/meme1.jpg">
-                    </div>
-                
-                
-                    <div class="blurring dimmable image">
-                        <div class="ui dimmer center">
-                            <div class="content">
-                                <div class="center">
-                                    <div class="ui inverted button">Choose meme</div>
+
+                        <div class="column">
+                            <div class="blurring dimmable image">
+                                <div class="ui dimmer center">
+                                    <div class="content">
+                                        <div class="center">
+                                            <div param_id='secondmeme_ID' class="ui inverted button" @click="chooseMeme($event)">Choose meme</div>
+                                        </div>
+                                    </div>
                                 </div>
+                                <img src="images/meme2.jpg">
                             </div>
                         </div>
-                        <img src="images/meme2.jpg">
                     </div>
-                
                 </div>
 
             </div>

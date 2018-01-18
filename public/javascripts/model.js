@@ -9,10 +9,18 @@ var app = new Vue({
             console.log('need to change memes and push info to db');
         },
         login: function() {
-            let login = $("#usernameLoginInput").val();
-            let password = $("#usernamePasswordInput").val();
+            let login = $("#usernameSigninInput").val();
+            let password = $("#passwordSigninInput").val();
             console.log('login : ', login);
             console.log('password : ', password);   
+        },
+        register: function() {
+            let login = $("#usernameSignupInput").val();
+            let password = $("#passwordSignupInput").val();
+            let passwordAgain = $("#passwordAgainSignupInput").val();
+            console.log('login : ', login);
+            console.log('password : ', password);  
+            console.log('passwordAgain : ', passwordAgain);  
         }
     },
     created: function () {

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 require('dotenv').load();
-
+const infoDocId =  process.env.INFODOC_OBJ_ID
 mongoose.Promise = global.Promise;
 
 

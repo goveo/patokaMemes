@@ -24,26 +24,28 @@ router.use(bodyParser.json());
 
 router.post('/login', (req, res) => {
     console.log(req.body);
-    passport.authenticate(local, {
-        successRedirect: '/sendSuccess',
-        failureRedirect: '/sendFailure'
-    })
-})
 
-//в клиенте отключить авторедирект и получить статус логина,
-//после чего вывести инфу об ошибке или залогинить его
-router.get('/sendSuccess', (req, res) => {
-    res.json({
-        login: 'success'
-    });
-})
+    let username = req.body.username;
+    let password = req.body.password;
+    let hash = Auth.sha512(req.body.password).passwordHash;
 
-router.get('/sendFailure', (req, res) => {
-    console.log('failureeee')
-    res.json({
-        login: 'error'
-    });
-});
+    User.getUserByPassHash(username, hash)
+        .then(user => {
+            if (!user) {
+                res.json('Wrong usenrame or password');
+            } else {
+                console.log(user);
+                passport.authenticate('local')(req, res, function () {
+                    console.log('logined success');
+                    res.json('success');
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.json('error');
+        })
+})
 
 passport.serializeUser(Auth.serializeUser);
 passport.deserializeUser(Auth.deserializeUser);
@@ -79,7 +81,7 @@ router.post('/register', (req, res) => {
     let hash = Auth.sha512(req.body.password).passwordHash;
     obj.passHash = hash;
     User.create(obj)
-        .then(data => { 
+        .then(data => {
             res.json({
                 data: data
             });

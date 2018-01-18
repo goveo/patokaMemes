@@ -27,7 +27,7 @@ var app = new Vue({
                 },  
                 headers: {}, 
                 success: function (response) {
-                    console.log('Success');
+                    console.log('response : ');
                     console.log(response);
                 },  
                 error: function (error) {

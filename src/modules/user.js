@@ -1,20 +1,7 @@
 const mongoose = require('mongoose');
-const paginate = require('mongoose-paginate');
 const Info = require('./info');
-
-const Schema = mongoose.Schema;
+let User = require('../schemas/user').User;
 mongoose.Promise = global.Promise;
-
-const userSchema = new Schema({
-    username: String,
-    fullname: String,
-    birthdate: Date,
-    passHash: String,
-    avatarLink: String,
-    id: Number
-})
-
-const User = mongoose.model("User", userSchema);
 
 function createUser(object) {
     console.log(object);

@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const Auth = require('../modules/auth');
-const User = require('../modules/user');
 const cookieParser = require('cookie-parser');
 const session = require('express-session')
 const bodyParser = require('body-parser');

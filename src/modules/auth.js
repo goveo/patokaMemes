@@ -3,7 +3,7 @@ const session = require('express-session');
 const crypto = require('crypto');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const User = require('./user');
+const db = require('./database');
 
 const serverSalt = "oZlAprrO5f";
 
@@ -21,7 +21,7 @@ function serializeUser(user, done) {
 };
 
 function deserializeUser(id, done) {
-    User.getById(id)
+    db.getById(id)
         .then(user => {
             done(user ? null : 'No user', user);
         })
@@ -42,7 +42,7 @@ const Strategy = new LocalStrategy(
     function (username, password, done) {
         let hash = sha512(password).passwordHash;
         console.log('hash:', hash)
-        User.getUserByPassHash(username, hash)
+        db.getUserByPassHash(username, hash)
             .then(user => {
                 if (!user) {
                     console.log('no user');

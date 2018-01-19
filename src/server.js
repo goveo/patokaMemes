@@ -2,10 +2,13 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 2323;
 const bodyParser = require('body-parser');
-const db = require('./modules/database');
 const path = require("path");
-const Auth = require('./modules/auth');
+
 const User = require('./schemas/user');
+
+const db = require('./modules/database');
+const Auth = require('./modules/auth');
+const memes = require('./modules/memes');
 
 app.use(express.static(__dirname + '/../public'));
 app.set('public', path.join(__dirname, '/../public'));
@@ -55,4 +58,3 @@ app.get('/users/:id/avatar', Auth.checkAuth, function (req, res) {
         res.send(err);
     }
 });
-

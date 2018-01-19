@@ -20,3 +20,29 @@
 #profile-info {
 	margin-top: 56px;
 }
+
+.user-avatar {
+	background: #fff;
+	display: inline-block;
+	vertical-align: top;
+	width: 275px;
+	height: 275px;
+}
+  
+.crop {
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+.crop img {
+	display: block;
+	min-width: 100%;
+	min-height: 100%;
+	margin: auto;
+	position: absolute;
+	top: -100%;
+	right: -100%;
+	bottom: -100%;
+	left: -100%;
+}

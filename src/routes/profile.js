@@ -25,25 +25,27 @@ router.get('/', Auth.checkAuth, (req, res) => {
     });
 });
 
-router.post('/updateAvatar', Auth.checkAuth, (req, res)=>{
-    if(req.files.avatar == undefined){
+router.post('/updateAvatar', Auth.checkAuth, (req, res) => {
+    if (req.files.avatar == undefined) {
         return res.json({
-            err: 'empty avatar field'
+            error: 'empty avatar field'
         })
     };
-    User.updateAvatar(parseInt(req.user.id, 10), req.files.avatar.mimetype, req.files.avatar.data)
-        .then(data=>{
+    let userID = parseInt(req.user.id, 10);
+    let contentType = req.files.avatar.mimetype;
+    let avatarData = req.files.avatar.data;
+    User.updateAvatar(userID, contentType, avatarData)
+        .then(data => {
             return res.json({
                 status: 'updated'
             })
         })
-        .catch(err=>{
+        .catch(err => {
             console.log('avatar updating error:', err);
             return res.json({
-                err: 'error updating avatar'
+                error: 'error updating avatar'
             })
         })
-
 });
 
 module.exports = {

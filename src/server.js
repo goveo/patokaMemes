@@ -48,7 +48,7 @@ app.get('/users/:id/avatar', Auth.checkAuth, function (req, res) {
             } else if (user.avatar == undefined || user.avatar.default == true) {
                 res.sendFile(path.join(__dirname, '../public/images/default_avatar.png'));
             } else {
-                res.setHeader('Cache-Control', 'public, max-age=3000000');
+                // res.setHeader('Cache-Control', 'public, max-age=3000000');
                 res.contentType(user.avatar.contentType);
                 res.send(user.avatar.data);
             }

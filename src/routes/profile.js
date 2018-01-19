@@ -19,7 +19,7 @@ router.use(bodyParser.urlencoded({
 
 router.use(bodyParser.json());
 
-router.get('/', (req, res) => {
+router.get('/', Auth.checkAuth, (req, res) => {
     res.render('profile', {
         user: req.user
     });

@@ -22,23 +22,97 @@
         <% include partials/navbar %>
             <!-- navbar -->
 
-        <div id="content">
+        <!-- <div id="content">
+
             
-            <div class="ui centered card" id="profile-info">
-                <a class="image">
-                    <img src="/users/<%=user.id%>/avatar">
-                </a>
-                <div class="content">
-                    <a class="header"><%=user.username%></a>
-                    <div class="meta">
-                        <a>Goveo</a>
+
+            <div class="ui centered grid">
+                <div class="row">
+                    <div class="ui centered card" id="profile-info">
+                        <div class="center">
+                            <div class="user-avatar">
+                                <div class="crop">
+                                    <img src="/users/<%=user.id%>/avatar">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="content">
+                            <a class="header"><%=user.username%></a>
+                            <div class="meta">
+                                <a>Goveo</a>
+                            </div>
+                        </div>
                     </div>
+        
+                    <form class="ui form" action="/profile/updateAvatar" method="POST" enctype="multipart/form-data">
+                        <div class="field">
+                            <label>Change avatar</label>
+                            <input type="file" name="avatar" placeholder="Avatar">
+                        </div>
+                        <button class="ui button" type="submit">Submit</button>
+                    </form>
                 </div>
             </div>
 
+        </div> -->
+
+        <div id="content">
+
+            <h1 class="center">Choose better meme</h1>
+
+            <div class="ui centered grid" id="memeChooser">
+                <div class="ui center special cards">
+
+                    <div class="ui centered card" id="profile-info">
+                        <div class="row">
+                            <div class="column">
+                                <div class="blurring dimmable image">
+                                    <div class="ui dimmer center">
+                                        <div class="content">
+                                            <div class="center">
+                                                <div class="ui inverted button" @click="changeAvatar">Change avatar</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="user-avatar">
+                                        <div class="crop">
+                                            <img src="/users/<%=user.id%>/avatar">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column">
+                                <div class="ui card">
+                                    <div class="content">
+                                        <div class="header"><%=user.username%></div>
+                                        <div class="meta">
+                                            Name Surname
+                                        </div>
+                                        <p>Some infoooo</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                      
+                </div>
+                <div class="row">
+                    <div class="ui message">
+                        Wanna change something?
+                        <a href="/settings">Settings</a>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
-    <script src="javascripts/model.js"></script>
+    <script src="/javascripts/model.js"></script>
+    <script>
+        $('.special.cards .image').dimmer({
+            on: 'hover'
+        });
+    </script>
 </body>
 
 </html>

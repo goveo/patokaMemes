@@ -91,7 +91,7 @@ const getAvatar = function (id) {
         })
 }
 
-const updateAvatar = function(userId, contentype, data){
+const updateAvatar = function (userId, contentype, data) {
     let upd = {
         avatar: {
             default: false,
@@ -99,11 +99,11 @@ const updateAvatar = function(userId, contentype, data){
             data: data
         }
     };
-    return User.findOneAndUpdate({id: userId}, upd)
-        .then(data=>{
+    return User.findOneAndUpdate({ id: userId }, upd)
+        .then(data => {
             return Promise.resolve(data)
         })
-        .catch(err=>{
+        .catch(err => {
             return Promise.reject(err);
         });
 }

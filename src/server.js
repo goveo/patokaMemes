@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const db = require('./modules/database');
 const path = require("path");
 const Auth = require('./modules/auth');
+const User = require('./schemas/user');
 
 app.use(express.static(__dirname + '/../public'));
 app.set('public', path.join(__dirname, '/../public'));
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 app.get('/users/:id', Auth.checkAuth, (req, res) => {
     let id = parseInt(req.params.id);
     res.render('userPage', {
+        user: req.user,
         userID: id
     });
 });
@@ -49,6 +51,7 @@ app.get('/users/:id/avatar', Auth.checkAuth, function (req, res) {
         });
 
     } catch (err) {
+        console.log('avatar error : ', err);
         res.send(err);
     }
 });

@@ -6,6 +6,9 @@ var app = new Vue({
         errorText: ""
     },
     methods: {
+        changeAvatar: function() {
+            console.log('changeAvatar');
+        },
         chooseMeme: function (event) {
             let memeID = $(event.currentTarget).attr('param_id');
             console.log("memeID : ", memeID);

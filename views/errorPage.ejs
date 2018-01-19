@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="icon" href="images/pepe.png" type="image/png">
+    <link rel="icon" href="/images/pepe.png" type="image/png">
     <title>patokaMemes</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
@@ -12,33 +12,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
-    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
 
 </head>
 
 <body>
     <div id="app">
-        <% var pageName = "profile" %>
+        <% var pageName = "errorPage" %>
         <% include partials/navbar %>
             <!-- navbar -->
 
         <div id="content">
     
-            <div class="ui card">
-                <a class="image" href="#">
-                    <img src="/images/avatar/large/steve.jpg">
-                </a>
-                <div class="content">
-                    <a class="header" href="#">Steve Jobes</a>
-                    <div class="meta">
-                    <a>Last Seen 2 days ago</a>
-                    </div>
-                </div>
-            </div>
+            <h1 class="center">Error</h1>
+            <h2 class="center"><%= error_message %></h2>
 
         </div>
     </div>
-    <script src="javascripts/model.js"></script>
+    <script src="/javascripts/model.js"></script>
 </body>
 
 </html>

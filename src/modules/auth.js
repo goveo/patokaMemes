@@ -29,12 +29,14 @@ function deserializeUser(id, done) {
 };
 
 function checkAuth(req, res, next) {
-    if (!req.user) return res.render('errorPage', {
-        user: req.user,
-        error_code: 401,
-        error_message: `You are not authorized, go on login page and do it or create an account if you don't have one`,
-        visit: false
-    }).sendStatus(401);
+    if (!req.user) {
+        return res.render('errorPage', {
+            user: undefined,
+            error_code: 401,
+            error_message: `You are not authorized, go on login page and do it or create an account if you don't have one`,
+            visit: false
+        });
+    }
     next();
 }
 

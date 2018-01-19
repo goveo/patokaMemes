@@ -19,7 +19,6 @@ router.use(bodyParser.urlencoded({
 router.use(bodyParser.json());
 
 router.get('/', (req, res) => {
-    console.log('req.user : ', req.user);
     res.render('profile', {
         user: req.user
     });

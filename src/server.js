@@ -4,6 +4,7 @@ const port = process.env.PORT || 2323;
 const bodyParser = require('body-parser');
 const db = require('./modules/database');
 const path = require("path");
+const Auth = require('./modules/auth');
 
 app.use(express.static(__dirname + '/../public'));
 app.set('public', path.join(__dirname, '/../public'));
@@ -23,3 +24,32 @@ app.get('/', (req, res) => {
         user: req.user
     });
 });
+
+app.get('/users/:id', Auth.checkAuth, (req, res) => {
+    let id = parseInt(req.params.id);
+    res.render('userPage', {
+        userID: id
+    });
+});
+
+app.get('/users/:id/avatar', Auth.checkAuth, function (req, res) {
+    try {
+        User.findOne({
+            id: req.params.id
+        }, function (err, user) {
+            if (err) {
+                res.send(err);
+            } else if (user.avatar == undefined || user.avatar.default == true) {
+                res.sendFile(path.join(__dirname, '../public/images/default_avatar.png'));
+            } else {
+                res.setHeader('Cache-Control', 'public, max-age=3000000');
+                res.contentType(user.avatar.contentType);
+                res.send(user.avatar.data);
+            }
+        });
+
+    } catch (err) {
+        res.send(err);
+    }
+});
+

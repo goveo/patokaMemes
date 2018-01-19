@@ -3,7 +3,7 @@ const app = express();
 const port = process.env.PORT || 2323;
 const bodyParser = require('body-parser');
 const path = require("path");
-
+const expressUpload = require('express-fileupload');
 const User = require('./schemas/user');
 
 const db = require('./modules/database');
@@ -11,6 +11,7 @@ const Auth = require('./modules/auth');
 const memes = require('./modules/memes');
 
 app.use(express.static(__dirname + '/../public'));
+app.use(expressUpload());
 app.set('public', path.join(__dirname, '/../public'));
 app.set('views', path.join(__dirname, '/../views'));
 app.set('view engine', 'ejs');

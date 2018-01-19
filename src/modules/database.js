@@ -14,6 +14,9 @@ mongoose.Promise = global.Promise;
 const createUser = function (object) {
     return new Promise((resolve, reject) => {
         let user = new User(object);
+        user.avatar = {
+            default: true
+        }
         user.save((err, data) => {
             if (err) {
                 console.log(err);
@@ -78,9 +81,39 @@ const getUserByPassHash = function (username, passHash) {
         })
 };
 
+const getAvatar = function (id) {
+    return User.findOne({ id: id }, { avatar: 1 })
+        .then(data => {
+            return Promise.resolve(data);
+        })
+        .catch(err => {
+            return Promise.reject(err)
+        })
+}
+
+const updateAvatar = function(userId, contentype, data){
+    let upd = {
+        avatar: {
+            default: false,
+            contentType: contentype,
+            data: data
+        }
+    };
+    return User.findOneAndUpdate({id: userId}, upd)
+        .then(data=>{
+            return Promise.resolve(data)
+        })
+        .catch(err=>{
+            return Promise.reject(err);
+        });
+}
+
+
 module.exports = {
     createUser: createUser,
     getUserByPassHash: getUserByPassHash,
     getById: getUserById,
-    isUserExist: isUserExist
+    isUserExist: isUserExist,
+    getAvatar: getAvatar,
+    updateAvatar: updateAvatar
 }

@@ -15,7 +15,12 @@ const UserSchema = new Schema({
     birthdate: Date,
     passHash: String,
     avatarLink: String,
-    id: Number
+    id: Number,
+    avatar: {
+        default: Boolean,
+        data: Buffer,
+        contentType: String
+    }
 });
 
 UserSchema.plugin(AutoIncrement, {

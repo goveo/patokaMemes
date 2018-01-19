@@ -3,7 +3,8 @@ const Auth = require('../modules/auth');
 const cookieParser = require('cookie-parser');
 const session = require('express-session')
 const bodyParser = require('body-parser');
-const isVaild = require('../modules/inputValidate')
+const isVaild = require('../modules/inputValidate');
+const User = require('../modules/database');
 
 router.use(cookieParser());
 router.use(session({
@@ -18,10 +19,31 @@ router.use(bodyParser.urlencoded({
 
 router.use(bodyParser.json());
 
-router.get('/', (req, res) => {
+router.get('/', Auth.checkAuth, (req, res) => {
     res.render('profile', {
         user: req.user
     });
+});
+
+router.post('/updateAvatar', Auth.checkAuth, (req, res)=>{
+    if(req.files.avatar == undefined){
+        return res.json({
+            err: 'empty avatar field'
+        })
+    };
+    User.updateAvatar(parseInt(req.user.id, 10), req.files.avatar.mimetype, req.files.avatar.data)
+        .then(data=>{
+            return res.json({
+                status: 'updated'
+            })
+        })
+        .catch(err=>{
+            console.log('avatar updating error:', err);
+            return res.json({
+                err: 'error updating avatar'
+            })
+        })
+
 });
 
 module.exports = {

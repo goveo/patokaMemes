@@ -25,25 +25,25 @@ router.get('/', Auth.checkAuth, (req, res) => {
     });
 });
 
-router.post('/updateAvatar', Auth.checkAuth, (req, res)=>{
-    if(req.files.avatar == undefined){
+router.post('/updateAvatar', (req, res) => {
+    console.log('files', req.files);
+    if (!req.files || !req.files.avatar) {
         return res.json({
-            err: 'empty avatar field'
+            err: "no file"
         })
-    };
+    }
     User.updateAvatar(parseInt(req.user.id, 10), req.files.avatar.mimetype, req.files.avatar.data)
-        .then(data=>{
+        .then(data => {
             return res.json({
                 status: 'updated'
             })
         })
-        .catch(err=>{
+        .catch(err => {
             console.log('avatar updating error:', err);
             return res.json({
                 err: 'error updating avatar'
             })
         })
-
 });
 
 module.exports = {

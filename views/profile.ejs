@@ -71,7 +71,12 @@
                                     <div class="ui dimmer center">
                                         <div class="content">
                                             <div class="center">
-                                                <div class="ui inverted button" @click="changeAvatar">Change avatar</div>
+                                                <form id="avatar-form" action="/profile/updateAvatar" method="POST" enctype="multipart/form-data">
+                                                    <div class="field">
+                                                        <label for="avatar-input" class="ui button">Select Image</label>
+                                                        <input id="avatar-input" accept="image/x-png,image/jpeg" type="file" style="visibility:hidden;">
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -111,6 +116,10 @@
     <script>
         $('.special.cards .image').dimmer({
             on: 'hover'
+        });
+        $('#avatar-form').on('change', function() {
+            console.log($('#avatar-input').val());
+            //process data
         });
     </script>
 </body>

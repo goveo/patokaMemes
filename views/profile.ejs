@@ -67,14 +67,14 @@
                     <div class="ui centered card" id="profile-info">
                         <div class="row">
                             <div class="column">
-                                <div class="blurring dimmable image">
+                                <div @mouseover="avatarHover = true" @mouseleave="avatarHover = false" class="blurring dimmable image">
                                     <div class="ui dimmer center">
                                         <div class="content">
                                             <div class="center">
                                                 <form id="avatar-form" action="/profile/updateAvatar" method="POST" enctype="multipart/form-data">
                                                     <div class="field">
                                                         <label for="avatar-input" class="ui button">Select Image</label>
-                                                        <input id="avatar-input" accept="image/x-png,image/jpeg" type="file" style="visibility:hidden;">
+                                                        <input @change="changeAvatar" id="avatar-input" accept="image/x-png,image/jpeg" type="file" style="visibility:hidden;">
                                                     </div>
                                                 </form>
                                             </div>
@@ -113,15 +113,6 @@
 
     </div>
     <script src="/javascripts/model.js"></script>
-    <script>
-        $('.special.cards .image').dimmer({
-            on: 'hover'
-        });
-        $('#avatar-form').on('change', function() {
-            console.log($('#avatar-input').val());
-            //process data
-        });
-    </script>
 </body>
 
 </html>

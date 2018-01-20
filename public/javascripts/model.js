@@ -3,30 +3,42 @@ var app = new Vue({
     data: {
         loginError: false,
         registerError: false,
-        errorText: ""
+        errorText: "",
+        avatar: "",
+        avatarHover: false
+    },
+    watch: {
+        avatarHover: function(value) {
+            if (value == true) {
+                $('.image').dimmer('show');
+            } else {
+                $('.image').dimmer('hide');
+            }
+        } 
     },
     methods: {
-        changeAvatar: function() {
+        changeAvatar: function () {
             console.log('changeAvatar');
+            console.log($('#avatar-input').val());
         },
         chooseMeme: function (event) {
             let memeID = $(event.currentTarget).attr('param_id');
             console.log("memeID : ", memeID);
             console.log('need to change memes and push info to db');
         },
-        registerPost: function(username, password) {
+        registerPost: function (username, password) {
             let data = {
                 username: username,
                 password: password
             };
             $.ajax({
                 type: 'post',
-                url: '/register',   
+                url: '/register',
                 data: data,
                 xhrFields: {
                     withCredentials: false
-                },  
-                headers: {}, 
+                },
+                headers: {},
                 success: function (response) {
                     console.log('response : ');
                     console.log(response);
@@ -37,25 +49,25 @@ var app = new Vue({
                         app.errorText = response.message;
                         app.registerError = true;
                     }
-                },  
+                },
                 error: function (error) {
                     console.log(error);
                 }
             });
         },
-        loginPost: function(username, password) {
+        loginPost: function (username, password) {
             let data = {
                 username: username,
                 password: password
             };
             $.ajax({
                 type: 'post',
-                url: '/login',   
+                url: '/login',
                 data: data,
                 xhrFields: {
                     withCredentials: false
-                },  
-                headers: {}, 
+                },
+                headers: {},
                 success: function (response) {
                     console.log('response : ');
                     console.log(response);
@@ -66,7 +78,7 @@ var app = new Vue({
                         app.errorText = response.message;
                         app.loginError = true;
                     }
-                },  
+                },
                 error: function (error) {
                     console.log('We are sorry but our servers are having an issue right now');
                     console.log(error);
@@ -101,5 +113,10 @@ var app = new Vue({
     },
     created: function () {
         console.log('created');
+        // console.log("$('#avatar-form') : ", $('#avatar-form'));
+
+        // $('#avatar-form').on('change', function () {
+        //     console.log($('#avatar-input').val());
+        // });
     }
 });

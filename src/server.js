@@ -8,9 +8,7 @@ const User = require('./schemas/user');
 
 const db = require('./modules/database');
 const Auth = require('./modules/auth');
-const memes = require('dankmemes');
-
-var memesArray = [];
+const memes = require('./modules/memes');
 
 app.use(express.static(__dirname + '/../public'));
 app.use(expressUpload());
@@ -24,7 +22,6 @@ app.use('/profile', require('./routes/profile').router);
 app.listen(port, (err) => {
     if (err) console.log(err);
     console.log('server on', port);
-    getMemes(5);
 });
 
 app.get('/', (req, res) => {
@@ -63,9 +60,4 @@ app.get('/users/:id/avatar', Auth.checkAuth, function (req, res) {
     }
 });
 
-function getMemes(numberOfMemes) {
-    memes('day', numberOfMemes, function(err, data) {
-        memesArray = JSON.stringify(data);
-        console.log('memesArray : ', memesArray);
-    });
-}
+memes.getMeme(1, 10);

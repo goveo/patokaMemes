@@ -5,6 +5,8 @@
   "main": "server.js",
   "dependencies": {
     "9gag": "^2.0.0",
+    "9gag-scraper": "^1.0.1",
+    "axios": "^0.17.1",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "dankmemes": "^1.0.0",
@@ -13,6 +15,7 @@
     "express": "^4.16.2",
     "express-fileupload": "^0.3.0",
     "express-session": "^1.15.6",
+    "get-meme-urls": "^1.0.1",
     "mongoose": "^5.0.0",
     "mongoose-paginate": "^5.0.3",
     "mongoose-sequence": "^4.0.1",

@@ -20,7 +20,8 @@ const UserSchema = new Schema({
         default: Boolean,
         data: Buffer,
         contentType: String
-    }
+    },
+    currunMemId: Number
 });
 
 UserSchema.plugin(AutoIncrement, {

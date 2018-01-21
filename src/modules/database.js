@@ -29,7 +29,7 @@ const createUser = function (object) {
             }
         });
     });
-}
+};
 
 const getUserById = function (userId) {
     return User.find({ id: userId })
@@ -43,7 +43,7 @@ const getUserById = function (userId) {
             console.log(err);
             return Promise.reject(err);
         })
-}
+};
 
 const isUserExist = function (username) {
     return User.findOne({
@@ -61,7 +61,7 @@ const isUserExist = function (username) {
             console.log(err);
             return Promise.reject(err);
         })
-}
+};
 
 const getUserByPassHash = function (username, passHash) {
     return User.findOne({
@@ -89,7 +89,7 @@ const getAvatar = function (id) {
         .catch(err => {
             return Promise.reject(err)
         })
-}
+};
 
 const updateAvatar = function (userId, contentype, data) {
     let upd = {
@@ -106,7 +106,7 @@ const updateAvatar = function (userId, contentype, data) {
         .catch(err => {
             return Promise.reject(err);
         });
-}
+};
 
 
 module.exports = {
@@ -116,4 +116,4 @@ module.exports = {
     isUserExist: isUserExist,
     getAvatar: getAvatar,
     updateAvatar: updateAvatar
-}
+};

@@ -98,7 +98,11 @@ router.post('/register', (req, res) => {
 
     db.createUser({
         username: username,
-        passHash: hash
+        passHash: hash,
+        currentMemId: 1,
+        avatar: {
+            deafault: true
+        }
     })
         .then(response => {
             console.log(response);

@@ -6,10 +6,13 @@ var app = new Vue({
         errorText: "",
         avatar: "",
         avatarHover: false,
+        leftMemeHover: false,
+        rightMemeHover: false,
         leftMeme: {},
         rightMeme: {},
         liked_id: "",
-        another_id: ""
+        another_id: "",
+        loading: false
     },
     watch: {
         avatarHover: function (value) {
@@ -17,6 +20,20 @@ var app = new Vue({
                 $('.image').dimmer('show');
             } else {
                 $('.image').dimmer('hide');
+            }
+        },
+        leftMemeHover: function (value) {
+            if (value == true) {
+                $('#left-meme').dimmer('show');
+            } else {
+                $('#left-meme').dimmer('hide');
+            }
+        },
+        rightMemeHover: function (value) {
+            if (value == true) {
+                $('#right-meme').dimmer('show');
+            } else {
+                $('#right-meme').dimmer('hide');
             }
         }
     },
@@ -26,6 +43,9 @@ var app = new Vue({
             console.log($('#avatar-input').val());
         },
         chooseMeme: function (side) {
+            app.loading = true;
+            console.log('app.loading = ', app.loading);
+            
             if (side == 'left') {
                 app.liked_id = app.leftMeme.meme_id;
                 app.another_id = app.rightMeme.meme_id;
@@ -35,7 +55,7 @@ var app = new Vue({
             }
             console.log("app.liked_id : ", app.liked_id);
             console.log("app.another_id : ", app.another_id);
-            
+
             let data = {
                 liked: app.liked_id,
                 another: app.another_id
@@ -143,11 +163,15 @@ var app = new Vue({
             window.location = "/logout";
         },
         getMemes: function () {
-            axios.get('/memes/current/').then((response) => {
-                console.log('data : ', response.data);
-                app.leftMeme = response.data.left;
-                app.rightMeme = response.data.right;
-            })
+            axios.get('/memes/current/')
+                .then((response) => {
+                    console.log('data : ', response.data);
+                    app.leftMeme = response.data.left;
+                    app.rightMeme = response.data.right;
+
+                    app.loading = false;
+                    console.log('app.loading = ', app.loading);
+                })
                 .catch((err) => {
                     console.log(err);
                 });

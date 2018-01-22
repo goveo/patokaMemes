@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const User = require('../schemas/user');
+const Meme = require('../schemas/meme');
+const memes = require('./memes');
 
 require('dotenv').load();
 mongoose.connect(process.env.DB_LINK, (err) => {
@@ -108,6 +110,37 @@ const updateAvatar = function (userId, contentype, data) {
         });
 };
 
+const createMeme = function (url) {
+    return new Promise((resolve, reject) => {
+        let meme = new Meme();
+        meme.url = url;
+        meme.votes = {
+            pros: 0,
+            cons: 0
+        };
+        meme.save((err, data) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                resolve(data);
+            }
+        });
+    });
+};
+
+const getMeme = function (meme_id) {
+    return Meme.findOne({ meme_id: meme_id })
+        .then((data) => {
+            if (data == null) {
+                return Promise.reject(`meme_id ${meme_id} does not exist`);
+            }
+            return Promise.resolve(data);
+        })
+        .catch((err) => {     
+            return Promise.reject(err)
+        })
+};
 
 module.exports = {
     createUser: createUser,
@@ -115,5 +148,7 @@ module.exports = {
     getById: getUserById,
     isUserExist: isUserExist,
     getAvatar: getAvatar,
-    updateAvatar: updateAvatar
+    updateAvatar: updateAvatar,
+    createMeme: createMeme,
+    getMeme: getMeme
 };

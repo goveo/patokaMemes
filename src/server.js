@@ -25,6 +25,22 @@ app.listen(port, (err) => {
 });
 
 app.get('/', (req, res) => {
+
+    // db.createMeme('https://pp.userapi.com/c841121/v841121762/59c30/-mQOdwUajZs.jpg')
+    //     .then((response) => {
+    //         console.log(response);
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //     });
+    db.getMeme(1)
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
     res.render('index', {
         user: req.user
     });
@@ -59,5 +75,3 @@ app.get('/users/:id/avatar', Auth.checkAuth, function (req, res) {
         res.send(err);
     }
 });
-
-memes.getMeme(1, 10);

@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 
 const MemeSchema = new Schema({
-    id: Number,
+    meme_id: Number,
     url: String,
     votes: {
         pros: Number,
@@ -14,8 +14,8 @@ const MemeSchema = new Schema({
 });
 
 MemeSchema.plugin(AutoIncrement, {
-	inc_field: 'id'
+	inc_field: 'meme_id'
 });
 MemeSchema.plugin(mongoosePaginate);
 
-module.exports = mongoose.model('Mem', MemeSchema);
+module.exports = mongoose.model('Meme', MemeSchema);

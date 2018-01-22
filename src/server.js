@@ -98,12 +98,17 @@ app.post('/memes/choose', Auth.checkAuth, function (req, res) {
     console.log('likedMemeId : ', likedMemeId);
     console.log('anotherMemeId : ', anotherMemeId);
     let meme_id = parseInt(req.params.meme_id);
-    db.voteForMeme(req.user, likedMemeId, anotherMemeId)
-        .then((data) => {
-            console.log('server data: ', data);
-            console.log(data);            
+    
+    return db.voteForMeme(req.user, likedMemeId, anotherMemeId)
+        .then((data) => {       
+            return res.json({
+                status: 'success'
+            });
         })
         .catch((err) => {
-            console.log(err);
+            return res.json({
+                status: 'error',
+                error: err
+            });
         });
 });

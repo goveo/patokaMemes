@@ -49,7 +49,9 @@ var app = new Vue({
                 },
                 // headers: {},
                 success: function (response) {
-                    console.log('response : ', response);
+                    if (response.status == "success") {
+                        app.getMemes();
+                    }
                 },
                 error: function (error) {
                     console.log(error);

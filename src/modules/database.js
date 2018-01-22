@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const User = require('../schemas/user');
 const Meme = require('../schemas/meme');
 const memes = require('./memes');
+const axios = require("axios");
 
 require('dotenv').load();
 mongoose.connect(process.env.DB_LINK, (err) => {
@@ -130,8 +131,46 @@ const createMeme = function (url) {
     });
 };
 
-const addNewMemes = function () {
-    console.log('================ addNewMemes ================');
+const addNewMemes = function (count) {
+    let currentPage = Number(Math.floor(count / 50) + 1);
+    console.log('currentPage : ', currentPage);
+
+    let url = 'https://api.imgur.com/3/g/memes/top/' + currentPage;
+    return axios.get(url, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'CLIENT-ID 66cf648f30b3bd9' //need to fix later
+        }
+    })
+        .then((response) => {
+            // console.log('memes: ', response.data.data);
+            let memes = response.data.data;
+            console.log('memes.length : ', memes.length);
+
+            for (let i = 0; i < memes.length; i++) {
+                console.log('i = ', i);
+                let meme = memes[i];
+                let memeUrl
+                try {
+                    memeUrl = meme.images[0].link;
+                } catch (err) {
+                    memeUrl = meme.link;
+                }
+                console.log(memeUrl);   
+                createMeme(memeUrl)
+                    .then((data) => {
+                        console.log('meme created');
+                    })
+                    .catch((err) => {
+                        console.log(err);         
+                    });
+            }
+            // console.log(response.data.data[id].images[0].link); //image link
+        })
+        .catch((err) => {
+            return Promise.reject(err);
+        });
+
 };
 
 const getMemesCount = function () {
@@ -170,12 +209,8 @@ const voteForMeme = function (user, likedMeme_id, another_id) {
         .then((data) => {
             return getMemesCount()
                 .then((count) => {
-                    console.log('=========================');
-                    console.log('user.currentMemeId : ', user.currentMemeId);
-                    console.log('count : ', count);
-                    console.log('=========================');
                     if ((user.currentMemeId + 2) > count) {
-                        return addNewMemes();
+                        return addNewMemes(count);
                     }
                 })
                 .catch((err) => {

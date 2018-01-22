@@ -7,10 +7,8 @@ mongoose.Promise = global.Promise;
 const MemeSchema = new Schema({
     meme_id: Number,
     url: String,
-    votes: {
-        pros: Number,
-        cons: Number
-    }
+    views: Number, 
+    votes: Number
 });
 
 MemeSchema.plugin(AutoIncrement, {

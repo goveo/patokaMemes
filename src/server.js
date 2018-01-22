@@ -24,6 +24,18 @@ app.listen(port, (err) => {
     console.log('server on', port);
 });
 
+
+app.get('/test', (req, res) => {
+    db.createMeme('https://pp.userapi.com/c7003/v7003892/44b7d/NV-w-9DWTtA.jpg')
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+});
+
+
 app.get('/', (req, res) => {
     res.render('index', {
         user: req.user
@@ -61,13 +73,6 @@ app.get('/users/:id/avatar', Auth.checkAuth, function (req, res) {
 });
 
 app.get('/memes/current', Auth.checkAuth, function (req, res) {
-    // db.createMeme('https://pp.userapi.com/c7003/v7003892/44b7d/NV-w-9DWTtA.jpg')
-    //     .then((response) => {
-    //         console.log(response);
-    //     })
-    //     .catch((error) => {
-    //         console.log(error);
-    //     });
     let current = req.user.currentMemeId;
     db.getMeme(current)
         .then((firstMeme) => {
@@ -94,7 +99,7 @@ app.post('/memes/choose', Auth.checkAuth, function (req, res) {
     console.log('likedMemeId : ', likedMemeId);
     console.log('anotherMemeId : ', anotherMemeId);
     let meme_id = parseInt(req.params.meme_id);
-    db.voteForMeme(likedMemeId, anotherMemeId)
+    db.voteForMeme(req.user, likedMemeId, anotherMemeId)
         .then((data) => {
             console.log(data);            
         })

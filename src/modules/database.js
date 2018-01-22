@@ -116,10 +116,9 @@ const createMeme = function (url) {
     return new Promise((resolve, reject) => {
         let meme = new Meme();
         meme.url = url;
-        meme.votes = {
-            pros: 0,
-            cons: 0
-        };
+        meme.votes = 0;
+        meme.views = 0;
+
         meme.save((err, data) => {
             if (err) {
                 console.log(err);
@@ -131,6 +130,10 @@ const createMeme = function (url) {
     });
 };
 
+const addNewMemes = function () {
+    
+}
+
 const getMeme = function (meme_id) {
     return Meme.findOne({ meme_id: meme_id })
         .then((data) => {
@@ -139,22 +142,39 @@ const getMeme = function (meme_id) {
             }
             return Promise.resolve(data);
         })
-        .catch((err) => {     
+        .catch((err) => {
             return Promise.reject(err)
         })
 };
 
-const voteForMeme = function (likedMeme_id, another_id) {
-    console.log('likedMeme_id in db : ', likedMeme_id);
-
-    Meme.findOneAndUpdate({meme_id :likedMeme_id}, {$inc : {'votes.pros' : 1}})
+const voteForMeme = function (user, likedMeme_id, another_id) {
+    let firstMeme, secondMeme;
+    return Meme.findOneAndUpdate({ meme_id: likedMeme_id }, { $inc: { votes: 1, views: 1 } })
         .then((data) => {
             console.log('data : ', data);
+            return Meme.findOneAndUpdate({ meme_id: another_id }, { $inc: { views: 1 } });
+        })
+        .then((data) => {
+            return User.findOneAndUpdate({ id: user.id }, { $inc: { currentMemeId: 2 } });
+        })
+        .then((data) => {
+            return getMeme(user.currentMemeId);
+        })
+        .then((data) => {
+            firstMeme = data;
+            return getMeme(user.currentMemeId + 1);
+        })
+        .then((data) => {
+            secondMeme = data;
+            return Promise.resolve({
+                left: firstMeme,
+                right: secondMeme
+            });
         })
         .catch((err) => {
-            console.log('err : ', err);            
+            console.log('err : ', err);
+            return Promise.reject(err);
         });
-
 }
 
 module.exports = {

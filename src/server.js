@@ -8,7 +8,6 @@ const User = require('./schemas/user');
 
 const db = require('./modules/database');
 const Auth = require('./modules/auth');
-const memes = require('./modules/memes');
 
 app.use(express.static(__dirname + '/../public'));
 app.use(expressUpload());
@@ -74,18 +73,18 @@ app.get('/users/:id/avatar', Auth.checkAuth, function (req, res) {
 
 app.get('/memes/current', Auth.checkAuth, function (req, res) {
     let current = req.user.currentMemeId;
+    let firstMeme;
+    console.log('currentMemeId : ', current);
     db.getMeme(current)
-        .then((firstMeme) => {
-            db.getMeme(current + 1)
-                .then((secondMeme) => {
-                    res.json({
-                        left: firstMeme,
-                        right: secondMeme
-                    });
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+        .then((data) => {
+            firstMeme = data;
+            return db.getMeme(current + 1);
+        })
+        .then((secondMeme) => {
+            return res.json({
+                left: firstMeme,
+                right: secondMeme
+            });
         })
         .catch((error) => {
             console.log(error);
@@ -101,6 +100,7 @@ app.post('/memes/choose', Auth.checkAuth, function (req, res) {
     let meme_id = parseInt(req.params.meme_id);
     db.voteForMeme(req.user, likedMemeId, anotherMemeId)
         .then((data) => {
+            console.log('server data: ', data);
             console.log(data);            
         })
         .catch((err) => {

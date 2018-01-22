@@ -104,10 +104,10 @@ const updateAvatar = function (userId, contentype, data) {
         }
     };
     return User.findOneAndUpdate({ id: userId }, upd)
-        .then(data => {
+        .then((data) => {
             return Promise.resolve(data)
         })
-        .catch(err => {
+        .catch((err) => {
             return Promise.reject(err);
         });
 };
@@ -131,7 +131,17 @@ const createMeme = function (url) {
 };
 
 const addNewMemes = function () {
-    
+    console.log('================ addNewMemes ================');
+};
+
+const getMemesCount = function () {
+    return Meme.count()
+        .then((data) => {
+            return Promise.resolve(data);
+        })
+        .catch((err) => {
+            return Promise.resolve(err);            
+        });
 }
 
 const getMeme = function (meme_id) {
@@ -156,6 +166,21 @@ const voteForMeme = function (user, likedMeme_id, another_id) {
         })
         .then((data) => {
             return User.findOneAndUpdate({ id: user.id }, { $inc: { currentMemeId: 2 } });
+        })
+        .then((data) => {
+            return getMemesCount()
+                .then((count) => {
+                    console.log('=========================');
+                    console.log('user.currentMemeId : ', user.currentMemeId);
+                    console.log('count : ', count);
+                    console.log('=========================');
+                    if ((user.currentMemeId + 2) > count) {
+                        return addNewMemes();
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
         })
         .then((data) => {
             return getMeme(user.currentMemeId);

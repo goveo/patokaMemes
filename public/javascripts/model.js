@@ -41,6 +41,8 @@ var app = new Vue({
         changeAvatar: function () {
             console.log('changeAvatar');
             console.log($('#avatar-input').val());
+
+            $("#avatar-form").submit();
         },
         chooseMeme: function (side) {
             app.loading = true;

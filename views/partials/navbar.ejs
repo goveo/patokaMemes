@@ -10,7 +10,26 @@
                 <img class="logo" src="/images/pepe.png">Patoka Memes
             </a>
         <% } %>
-
+        <div class="left menu">
+            <% if(pageName == 'index' ) { %>
+                <a href="#" class="active item">
+                    Home
+                </a>
+            <% } else { %>
+                <a href="/" class="item">
+                    Home
+                </a>
+            <% } %>
+            <% if(pageName == 'memes' ) { %>
+                <a href="#" class="active item">
+                    Memes
+                </a>
+            <% } else { %>
+                <a href="/memes" class="item">
+                    Memes
+                </a>
+            <% } %>
+        </div>
         
         <div class="right menu">
             <% if (user) { %>

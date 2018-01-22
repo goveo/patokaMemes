@@ -24,9 +24,9 @@
 
         <div id="content">
 
-            <h1 class="center">Choose better meme</h1>
+            <h1 class="center">It's you =-)</h1>
 
-            <div class="ui centered grid" id="memeChooser">
+            <div class="ui centered grid">
                 <div class="ui center special cards">
 
                     <div class="ui centered card" id="profile-info">
@@ -39,7 +39,7 @@
                                                 <form id="avatar-form" action="/profile/updateAvatar" method="POST" enctype="multipart/form-data">
                                                     <div class="field">
                                                         <label for="avatar-input" class="ui button">Select Image</label>
-                                                        <input @change="changeAvatar" id="avatar-input" accept="image/x-png,image/jpeg" type="file" style="visibility:hidden;">
+                                                        <input name="avatar" @change="changeAvatar" id="avatar-input" accept="image/x-png,image/jpeg" type="file" style="visibility:hidden;">
                                                     </div>
                                                 </form>
                                             </div>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="images/pepe.png" type="image/png">
+    <title>patokaMemes</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+
+</head>
+
+<body>
+    <div id="app">
+        
+        <% var pageName = "memes" %>
+        <% include partials/navbar %>
+        <!-- navbar -->
+        
+
+        <div id="content">
+
+            <h1 class="center">Choose better meme</h1>
+
+            <div class="ui centered grid" id="meme-chooser">
+
+                <div class="row">
+                    <div v-if="loading">
+                        <div class="ui active centered massive inline loader"></div>
+                    </div>
+                    <div v-else>
+                        <div class="ui center special cards">
+                            <div @mouseover="leftMemeHover = true" @mouseleave="leftMemeHover = false" class="column meme-image">
+                                <div class="blurring dimmable image" id="left-meme">
+                                    <div class="ui dimmer center">
+                                        <div class="content">
+                                            <div class="center">
+                                                <div class="ui inverted button" @click="chooseMeme('left')">Choose meme</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <img :src="leftMeme.url" class="meme-image">
+                                </div>
+                            </div>
+    
+                            <div @mouseover="rightMemeHover = true" @mouseleave="rightMemeHover = false" class="column">
+                                <div class="blurring dimmable image" id="right-meme">
+                                    <div class="ui dimmer center">
+                                        <div class="content">
+                                            <div class="center">
+                                                <div class="ui inverted button" @click="chooseMeme('right')">Choose meme</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <img :src="rightMeme.url" class="meme-image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="javascripts/model.js"></script>
+</body>
+
+</html>

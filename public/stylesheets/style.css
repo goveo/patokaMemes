@@ -11,6 +11,18 @@
 	margin: auto;
 	margin-left: 10px;
 	margin-right: 10px;
+	max-height: 400px;
+	max-width: 400px;
+}
+
+#right-meme {
+	max-height: 400px;
+	max-width: 400px;
+}
+
+#left-meme {
+	max-height: 400px;
+	max-width: 400px;
 }
 
 #register-form {

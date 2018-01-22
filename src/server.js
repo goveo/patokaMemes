@@ -34,6 +34,11 @@ app.get('/test', (req, res) => {
         });
 });
 
+app.get('/memes', Auth.checkAuth, (req, res) => {
+    res.render('memes', {
+        user: req.user
+    });
+});
 
 app.get('/', (req, res) => {
     res.render('index', {
@@ -98,7 +103,7 @@ app.post('/memes/choose', Auth.checkAuth, function (req, res) {
     console.log('likedMemeId : ', likedMemeId);
     console.log('anotherMemeId : ', anotherMemeId);
     let meme_id = parseInt(req.params.meme_id);
-    
+
     return db.voteForMeme(req.user, likedMemeId, anotherMemeId)
         .then((data) => {       
             return res.json({

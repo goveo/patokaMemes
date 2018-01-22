@@ -26,6 +26,7 @@ router.get('/', Auth.checkAuth, (req, res) => {
 });
 
 router.post('/updateAvatar', Auth.checkAuth, (req, res) => {
+    // console.log('/updateAvatar');
     if (req.files.avatar == undefined) {
         return res.json({
             error: 'empty avatar field'
@@ -36,15 +37,16 @@ router.post('/updateAvatar', Auth.checkAuth, (req, res) => {
     let avatarData = req.files.avatar.data;
     User.updateAvatar(userID, contentType, avatarData)
         .then(data => {
-            return res.json({
-                status: 'updated'
-            })
+            // return res.json({
+            //     status: 'updated'
+            // })
+            res.redirect('/profile');
         })
         .catch(err => {
             console.log('avatar updating error:', err);
-            return res.json({
-                error: 'error updating avatar'
-            })
+            // return res.json({
+            //     error: 'error updating avatar'
+            // });
         })
 });
 

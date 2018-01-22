@@ -25,49 +25,7 @@
         
 
         <div id="content">
-
-            <h1 class="center">Choose better meme</h1>
-
-            <div class="ui centered grid" id="memeChooser">
-
-                <div class="row">
-                    <div v-if="loading">
-                        <div class="ui active centered massive inline loader"></div>
-                    </div>
-                    <div v-else>
-                        <div class="ui center special cards">
-                            <div @mouseover="leftMemeHover = true" @mouseleave="leftMemeHover = false" class="column meme-image">
-                                <div class="blurring dimmable image" id="left-meme">
-                                    <div class="ui dimmer center">
-                                        <div class="content">
-                                            <div class="center">
-                                                <div class="ui inverted button" @click="chooseMeme('left')">Choose meme</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- <img src="images/meme1.jpg"> -->
-                                    <img :src="leftMeme.url">
-                                </div>
-                            </div>
-    
-                            <div @mouseover="rightMemeHover = true" @mouseleave="rightMemeHover = false" class="column">
-                                <div class="blurring dimmable image" id="right-meme">
-                                    <div class="ui dimmer center">
-                                        <div class="content">
-                                            <div class="center">
-                                                <div class="ui inverted button" @click="chooseMeme('right')">Choose meme</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- <img src="images/meme2.jpg"> -->
-                                    <img :src="rightMeme.url">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+            <h1 class="center">List of top memes here</h1>
         </div>
 
     </div>

@@ -87,13 +87,14 @@ app.get('/memes/current', Auth.checkAuth, function (req, res) {
         });
 });
 
-app.get('/memes/choose', Auth.checkAuth, function (req, res) {
-    let likedMemeId = req.query.liked; 
-    let anotherMemeId = req.query.another;
+app.post('/memes/choose', Auth.checkAuth, function (req, res) {
+    console.log('req.body: ', req.body);
+    let likedMemeId = req.body.liked; 
+    let anotherMemeId = req.body.another;
     console.log('likedMemeId : ', likedMemeId);
     console.log('anotherMemeId : ', anotherMemeId);
     let meme_id = parseInt(req.params.meme_id);
-    db.voteForMeme()
+    db.voteForMeme(likedMemeId, anotherMemeId)
         .then((data) => {
             console.log(data);            
         })

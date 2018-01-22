@@ -12,13 +12,13 @@ var app = new Vue({
         another_id: ""
     },
     watch: {
-        avatarHover: function(value) {
+        avatarHover: function (value) {
             if (value == true) {
                 $('.image').dimmer('show');
             } else {
                 $('.image').dimmer('hide');
             }
-        } 
+        }
     },
     methods: {
         changeAvatar: function () {
@@ -26,23 +26,35 @@ var app = new Vue({
             console.log($('#avatar-input').val());
         },
         chooseMeme: function (side) {
-            if (side == 'left') { 
-                liked_id = app.leftMeme.meme_id;
-                another_id = app.rightMeme.meme_id;
+            if (side == 'left') {
+                app.liked_id = app.leftMeme.meme_id;
+                app.another_id = app.rightMeme.meme_id;
             } else {
-                liked_id = app.rightMeme.meme_id;
-                another_id = app.leftMeme.meme_id;
+                app.liked_id = app.rightMeme.meme_id;
+                app.another_id = app.leftMeme.meme_id;
             }
-            console.log("liked_id : ", liked_id);
-            console.log("another_id : ", another_id);
-
-            // console.log('liked_id : ', liked_id);
-            // console.log('another_id : ', another_id);
-
-            // {
-            //     liked: liked_id,
-            //     another: another_id
-            // }
+            console.log("app.liked_id : ", app.liked_id);
+            console.log("app.another_id : ", app.another_id);
+            
+            let data = {
+                liked: app.liked_id,
+                another: app.another_id
+            };
+            $.ajax({
+                type: 'post',
+                url: '/memes/choose/',
+                data: data,
+                xhrFields: {
+                    withCredentials: false
+                },
+                // headers: {},
+                success: function (response) {
+                    console.log('response : ', response);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
         },
         registerPost: function (username, password) {
             let data = {
@@ -128,7 +140,7 @@ var app = new Vue({
         logout: function () {
             window.location = "/logout";
         },
-        getMemes: function() {
+        getMemes: function () {
             axios.get('/memes/current/').then((response) => {
                 console.log('data : ', response.data);
                 app.leftMeme = response.data.left;

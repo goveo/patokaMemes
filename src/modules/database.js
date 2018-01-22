@@ -144,8 +144,17 @@ const getMeme = function (meme_id) {
         })
 };
 
-const voteForMeme = function (likedMeme, another) { 
-    
+const voteForMeme = function (likedMeme_id, another_id) {
+    console.log('likedMeme_id in db : ', likedMeme_id);
+
+    Meme.findOneAndUpdate({meme_id :likedMeme_id}, {$inc : {'votes.pros' : 1}})
+        .then((data) => {
+            console.log('data : ', data);
+        })
+        .catch((err) => {
+            console.log('err : ', err);            
+        });
+
 }
 
 module.exports = {

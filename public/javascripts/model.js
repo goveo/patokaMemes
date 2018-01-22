@@ -7,7 +7,9 @@ var app = new Vue({
         avatar: "",
         avatarHover: false,
         leftMeme: {},
-        rightMeme: {}
+        rightMeme: {},
+        liked_id: "",
+        another_id: ""
     },
     watch: {
         avatarHover: function(value) {
@@ -23,10 +25,24 @@ var app = new Vue({
             console.log('changeAvatar');
             console.log($('#avatar-input').val());
         },
-        chooseMeme: function (event) {
-            let memeID = $(event.currentTarget).attr('param_id');
-            console.log("memeID : ", memeID);
-            console.log('need to change memes and push info to db');
+        chooseMeme: function (side) {
+            if (side == 'left') { 
+                liked_id = app.leftMeme.meme_id;
+                another_id = app.rightMeme.meme_id;
+            } else {
+                liked_id = app.rightMeme.meme_id;
+                another_id = app.leftMeme.meme_id;
+            }
+            console.log("liked_id : ", liked_id);
+            console.log("another_id : ", another_id);
+
+            // console.log('liked_id : ', liked_id);
+            // console.log('another_id : ', another_id);
+
+            // {
+            //     liked: liked_id,
+            //     another: another_id
+            // }
         },
         registerPost: function (username, password) {
             let data = {
@@ -113,12 +129,11 @@ var app = new Vue({
             window.location = "/logout";
         },
         getMemes: function() {
-            axios.get('/memes/current/')
-                .then((response) => {
-                    console.log('data : ', response.data);
-                    app.leftMeme = response.data.left;
-                    app.rightMeme = response.data.right;
-                })
+            axios.get('/memes/current/').then((response) => {
+                console.log('data : ', response.data);
+                app.leftMeme = response.data.left;
+                app.rightMeme = response.data.right;
+            })
                 .catch((err) => {
                     console.log(err);
                 });

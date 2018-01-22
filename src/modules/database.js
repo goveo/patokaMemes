@@ -144,6 +144,10 @@ const getMeme = function (meme_id) {
         })
 };
 
+const voteForMeme = function (likedMeme, another) { 
+    
+}
+
 module.exports = {
     createUser: createUser,
     getUserByPassHash: getUserByPassHash,
@@ -152,5 +156,6 @@ module.exports = {
     getAvatar: getAvatar,
     updateAvatar: updateAvatar,
     createMeme: createMeme,
-    getMeme: getMeme
+    getMeme: getMeme,
+    voteForMeme: voteForMeme
 };

@@ -68,7 +68,7 @@ app.get('/memes/current', Auth.checkAuth, function (req, res) {
     //     .catch((error) => {
     //         console.log(error);
     //     });
-    let current = req.user.currentMemId;
+    let current = req.user.currentMemeId;
     db.getMeme(current)
         .then((firstMeme) => {
             db.getMeme(current + 1)

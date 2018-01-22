@@ -20,8 +20,9 @@
     <div id="app">
         
         <% var pageName = "index" %>
-        <% include partials/navbar %>  
+        <% include partials/navbar %>
         <!-- navbar -->
+        
 
         <div id="content">
 
@@ -36,11 +37,12 @@
                                 <div class="ui dimmer center">
                                     <div class="content">
                                         <div class="center">
-                                            <div param_id='firstmeme_ID' class="ui inverted button" @click="chooseMeme($event)">Choose meme</div>
+                                            <div class="ui inverted button" @click="chooseMeme($event)">Choose meme</div>
                                         </div>
                                     </div>
                                 </div>
-                                <img src="images/meme1.jpg">
+                                <!-- <img src="images/meme1.jpg"> -->
+                                <img :src="leftMeme.url">
                             </div>
                         </div>
 
@@ -49,11 +51,12 @@
                                 <div class="ui dimmer center">
                                     <div class="content">
                                         <div class="center">
-                                            <div param_id='secondmeme_ID' class="ui inverted button" @click="chooseMeme($event)">Choose meme</div>
+                                            <div class="ui inverted button" @click="chooseMeme($event)">Choose meme</div>
                                         </div>
                                     </div>
                                 </div>
-                                <img src="images/meme2.jpg">
+                                <!-- <img src="images/meme2.jpg"> -->
+                                <img :src="rightMeme.url">
                             </div>
                         </div>
                     </div>

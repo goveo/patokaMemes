@@ -19,7 +19,7 @@ const createUser = function (object) {
         user.avatar = {
             default: true
         };
-        user.currentMemId = 1;
+        user.currentMemeId = 1;
 
         user.save((err, data) => {
             if (err) {

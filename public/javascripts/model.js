@@ -5,7 +5,9 @@ var app = new Vue({
         registerError: false,
         errorText: "",
         avatar: "",
-        avatarHover: false
+        avatarHover: false,
+        leftMeme: {},
+        rightMeme: {}
     },
     watch: {
         avatarHover: function(value) {
@@ -109,14 +111,21 @@ var app = new Vue({
         },
         logout: function () {
             window.location = "/logout";
+        },
+        getMemes: function() {
+            axios.get('/memes/current/')
+                .then((response) => {
+                    console.log('data : ', response.data);
+                    app.leftMeme = response.data.left;
+                    app.rightMeme = response.data.right;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         }
     },
-    created: function () {
+    created() {
+        this.getMemes();
         console.log('created');
-        // console.log("$('#avatar-form') : ", $('#avatar-form'));
-
-        // $('#avatar-form').on('change', function () {
-        //     console.log($('#avatar-input').val());
-        // });
     }
 });

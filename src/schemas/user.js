@@ -21,7 +21,7 @@ const UserSchema = new Schema({
         data: Buffer,
         contentType: String
     },
-    currentMemId: Number
+    currentMemeId: Number
 });
 
 UserSchema.plugin(AutoIncrement, {

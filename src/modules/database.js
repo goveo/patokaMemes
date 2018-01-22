@@ -18,7 +18,9 @@ const createUser = function (object) {
         let user = new User(object);
         user.avatar = {
             default: true
-        }
+        };
+        user.currentMemId = 1;
+
         user.save((err, data) => {
             if (err) {
                 console.log(err);

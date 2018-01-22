@@ -25,22 +25,6 @@ app.listen(port, (err) => {
 });
 
 app.get('/', (req, res) => {
-
-    // db.createMeme('https://pp.userapi.com/c841121/v841121762/59c30/-mQOdwUajZs.jpg')
-    //     .then((response) => {
-    //         console.log(response);
-    //     })
-    //     .catch((error) => {
-    //         console.log(error);
-    //     });
-    db.getMeme(1)
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-
     res.render('index', {
         user: req.user
     });
@@ -74,4 +58,31 @@ app.get('/users/:id/avatar', Auth.checkAuth, function (req, res) {
         console.log('avatar error : ', err);
         res.send(err);
     }
+});
+
+app.get('/memes/current', Auth.checkAuth, function (req, res) {
+    // db.createMeme('https://pp.userapi.com/c7003/v7003892/44b7d/NV-w-9DWTtA.jpg')
+    //     .then((response) => {
+    //         console.log(response);
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //     });
+    let current = req.user.currentMemId;
+    db.getMeme(current)
+        .then((firstMeme) => {
+            db.getMeme(current + 1)
+                .then((secondMeme) => {
+                    res.json({
+                        left: firstMeme,
+                        right: secondMeme
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 });
